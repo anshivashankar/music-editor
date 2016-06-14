@@ -14,19 +14,19 @@ public interface IMusicModel<K> {
    *
    * @param k the note to be added to the piece
    */
-  void add(NoteStartPair<K> k);
+  void add(K k);
 
   /**
    * adds a list of notes to the Piece
    */
-  void addAll(List<NoteStartPair<K>> notes);
+  void addAll(List<K> notes);
 
   /**
    * removes a note from the piece
    *
    * @param k the note to be removed
    */
-  void remove(NoteStartPair<K> k);
+  void remove(K k);
 
   /**
    * returns a new music model that combines this piece and the other piece with simultaneous
@@ -40,31 +40,40 @@ public interface IMusicModel<K> {
 
   /**
    * returns a new music model that combines this piece and the other piece with consecutive beats,
-   * the piece's notes come first
+   * this piece's notes come first
    *
    * @param other the other piece of music
    * @return a piece of music that represents the two pieces of music combined consecutively
    */
   IMusicModel<K> combineConsecutively(IMusicModel<K> other);
 
+  /**
+   * returns a list of notes that are represented in the piece at a certain beat
+   *
+   * @return a list of notes that are represented in the piece at a certain beat
+   */
+  List<K> getBeatNotes(int beat);
 
   /**
-   * returns a list of NoteStartPairs that are represented in the piece at a certain beat
+   * returns a list of notes that are represented in the piece
    *
-   * @return a list of NoteStartPairs that are represented in the piece at a certain beat
+   * @return a list of notes that are represented in the piece
    */
-  List<NoteStartPair<K>> getBeatNotes(int beat);
-
-  /**
-   * returns a list of NoteStartPairs that are represented in the Piece
-   *
-   * @return a list of NoteStartPairs that are represented in the Piece
-   */
-  List<NoteStartPair<K>> getAllNotes();
+  List<K> getAllNotes();
 
   /**
    * returns a String that represents the piece of music in and only shows the min to max notes
    * required
+   *
+   * @return a String that represents the piece of music in and only shows the min to max notes
+   * required
    */
   String showPiece();
+
+  /**
+   * returns the last beat that is played in the piece of music
+   *
+   * @return the last beat that is played in the piece of music
+   */
+  int lastBeat();
 }

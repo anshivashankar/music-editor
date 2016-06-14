@@ -12,40 +12,54 @@ import java.util.Map;
  */
 public class Piece implements IMusicModel<Note> {
 
-  private final Map<Integer, List<Note>> music;
+  private final Map<Integer, ArrayList<Note>> notesMap;
+
+  private final ArrayList<Note> notesList;
 
   public Piece() {
-    this.music = new HashMap<Integer, List<Note>>();
+    this.notesMap = new HashMap<Integer, ArrayList<Note>>();
+    this.notesList = new ArrayList<Note>();
   }
 
-  public Piece(List<NoteStartPair<Note>> notes) {
+  public Piece(List<Note> notes) {
     this();
     this.addAll(notes);
   }
 
   @Override
-  public void add(NoteStartPair<Note> notePair) {
-    // checks if an entry for the note's startBeat is already in the Map
-    List<Note> startBeatNotes;
-    if (this.music.containsKey(notePair.getStartBeat())) {
-      startBeatNotes = this.music.get(notePair.getStartBeat());
-    } else {
-      startBeatNotes = new ArrayList();
-      this.music.put(notePair.getStartBeat(), startBeatNotes);
+  public void add(Note note) {
+    // adding note to notesList
+    this.notesList.add(note);
+
+    // adding note to notesMap
+    // adds it to every beat the note is played
+    for (int i = note.getStartBeat(); i < note.getStartBeat() + note.getDuration(); i++) {
+      // checks if an entry for the current beat is already in the Map
+      ArrayList<Note> beatNotes;
+      if (this.notesMap.containsKey(i)) {
+        beatNotes = this.notesMap.get(i);
+      } else {
+        beatNotes = new ArrayList<Note>();
+        this.notesMap.put(i, beatNotes);
+      }
+      beatNotes.add(note);
     }
-    startBeatNotes.add(notePair.getNote());
   }
 
   @Override
-  public void addAll(List<NoteStartPair<Note>> notes) {
-    for (NoteStartPair<Note> n : notes) {
+  public void addAll(List<Note> notes) {
+    for (Note n : notes) {
       this.add(n);
     }
   }
 
   @Override
-  public void remove(NoteStartPair<Note> notePair) {
-    if (!this.music.get(notePair.getStartBeat()).remove(notePair.getNote())) {
+  public void remove(Note note) {
+    if (this.notesList.remove(note)) {
+      for (int i = note.getStartBeat(); i < note.getStartBeat() + note.getDuration(); i++) {
+        this.notesMap.get(i).remove(note);
+      }
+    } else {
       throw new IllegalArgumentException("Given note not in this Piece");
     }
   }
@@ -63,176 +77,159 @@ public class Piece implements IMusicModel<Note> {
   @Override
   public IMusicModel<Note> combineConsecutively(IMusicModel<Note> that) {
     IMusicModel<Note> newPiece = new Piece();
+
+    // add notes from this piece
     newPiece.addAll(this.getAllNotes());
 
-    // adding to the startTime of all notes in the IMusicModel
-    int lastBeat = 0;
+    // add notes from the other piece after incrementing their startTimes by the lastBeat played
+    // in this song
+    int startBeat = this.lastBeat() + 1;
 
-    for (NoteStartPair<Note> n : this.getAllNotes()) {
-      int lastBeatThisNote = n.getStartBeat() + n.getNote().getDuration() - 1;
-      if (lastBeatThisNote > lastBeat) {
-        lastBeat = lastBeatThisNote;
-      }
+    for (Note n : that.getAllNotes()) {
+      newPiece.add(new Note(n.getPitch(), n.getOctave(),
+              n.getDuration(), n.getStartBeat() + startBeat));
     }
-
-    List<NoteStartPair<Note>> thatNotes = that.getAllNotes();
-    for (int i = 0; i < thatNotes.size(); i++) {
-      NoteStartPair<Note> note = thatNotes.get(i);
-      thatNotes.set(i, new NoteStartPair<Note>(note.getNote(), note.getStartBeat() + lastBeat + 1)
-      );
-    }
-
-    newPiece.addAll(thatNotes);
 
     return newPiece;
   }
 
   @Override
-  public List<NoteStartPair<Note>> getBeatNotes(int beat) {
-    List<NoteStartPair<Note>> beatNotes = new ArrayList<NoteStartPair<Note>>();
-
-    for (NoteStartPair<Note> n : this.getAllNotes()) {
-      int beatsFromStartBeat = beat - n.getStartBeat();
-
-      // checks if the note plays during the given beat
-      if (beatsFromStartBeat >= 0 && beatsFromStartBeat < n.getNote().getDuration()) {
-        beatNotes.add(n);
-      }
+  public List<Note> getBeatNotes(int beat) {
+    if (this.notesMap.containsKey(beat)) {
+      // the following cast should never fail because it is cloning an ArrayList<Note> from
+      // the notesMap
+      return (ArrayList<Note>) (this.notesMap.get(beat).clone());
+    } else {
+      return new ArrayList<Note>();
     }
-
-    return beatNotes;
   }
 
   @Override
-  public List<NoteStartPair<Note>> getAllNotes() {
-    List<NoteStartPair<Note>> notes = new ArrayList<NoteStartPair<Note>>();
-
-    // adds every note from music into the notes list
-    for (Map.Entry<Integer, List<Note>> beat : this.music.entrySet()) {
-      for (Note n : beat.getValue()) {
-        notes.add(new NoteStartPair<Note>(n, beat.getKey()));
-      }
-    }
-
-    return notes;
+  public List<Note> getAllNotes() {
+    // the following cast should never fail because it is cloning an ArrayList<Note> as notesList
+    // is defined
+    return (ArrayList<Note>) (this.notesList.clone());
   }
 
   @Override
   public String showPiece() {
-    String piece = "";
-
-    List<NoteStartPair<Note>> notePairs = this.getAllNotes();
-
-    if (notePairs.size() == 0) {
+    if (this.notesList.size() == 0) {
       return "╔╗\n" +
               "╚╝";
     }
 
-    List<Note> notes = new ArrayList<Note>();
+    StringBuilder pieceString = new StringBuilder();
 
-    for (NoteStartPair<Note> n : notePairs) {
-      notes.add(n.getNote());
-    }
-
-    Note maxNote = Collections.max(notes);
-    Note minNote = Collections.min(notes);
+    Note maxNote = Collections.max(this.notesList);
+    Note minNote = Collections.min(this.notesList);
 
     int numberOfColumns = maxNote.compareTo(minNote) + 1;
-
-    ArrayList<char[]> beatStrings = new ArrayList<char[]>();
-
-    for (NoteStartPair<Note> n : notePairs) {
-      // adds rows to beatStrings until there are enough represent the current note
-      while (beatStrings.size() < n.getStartBeat() + n.getNote().getDuration()) {
-        char[] toAdd = new char[numberOfColumns];
-        Arrays.fill(toAdd, ' ');
-        beatStrings.add(toAdd);
-      }
-
-      // the column used to represent the note currently being processed
-      int column = n.getNote().compareTo(minNote);
-
-      // writes the start character of the note
-      beatStrings.get(n.getStartBeat())[column] = 'X';
-
-      // writes the characters following the start character only if the space was already empty
-      for (int i = n.getStartBeat() + 1; i < n.getStartBeat() + n.getNote().getDuration(); i++) {
-        if (beatStrings.get(i)[column] == ' ') {
-          beatStrings.get(i)[column] = '|';
-        }
-      }
-    }
-
-    int numberOfBeats = beatStrings.size();
-
-    int beatNumberLength = Integer.toString(numberOfBeats - 1).length();
+    int lastBeat = this.lastBeat();
+    int beatNumberLength = Integer.toString(lastBeat - 1).length();
 
     // the first line
-    piece += '╔' + this.stringMultiply("=", beatNumberLength + numberOfColumns * 5) + '╗' +
-            '\n';
+    pieceString.append('╔');
+    pieceString.append(this.charMultiply('=', beatNumberLength + numberOfColumns * 5));
+    pieceString.append("╗\n");
 
     // the second line: the notes printed
-    piece += '║' + this.stringMultiply(" ", beatNumberLength);
+    pieceString.append('║');
+    pieceString.append(this.charMultiply(' ', beatNumberLength));
 
-    int octave = minNote.getOctave();
-    int pitchValue = minNote.getPitch().ordinal();
+    for (int i = minNote.notePlace(); i <= maxNote.notePlace(); i++) {
+      String noteToString = new Note(i, 1, 0).toString();
 
-    for (int i = 0; i < numberOfColumns; i++) {
-      String noteToString = new Note(Note.Pitch.values()[pitchValue], octave, 1).toString();
+      switch (noteToString.length()) {
+        case 2:
+          pieceString.append("  ");
+          pieceString.append(noteToString);
+          pieceString.append(" ");
+          break;
 
-      if (noteToString.length() == 2) {
-        piece += "  " + noteToString + " ";
-      } else if (noteToString.length() == 3) {
-        piece += " " + noteToString + " ";
-      } else {
-        throw new RuntimeException("Note toString giving wrong size");
-      }
+        case 3:
+          pieceString.append(" ");
+          pieceString.append(noteToString);
+          pieceString.append(" ");
+          break;
 
-      if (pitchValue == Note.Pitch.values().length - 1) {
-        octave += 1;
-        pitchValue = 0;
-      } else {
-        pitchValue += 1;
+        case 4:
+          pieceString.append(" ");
+          pieceString.append(noteToString);
+          break;
+
+        default:
+          throw new RuntimeException("Note toString giving wrong size");
       }
     }
 
-    piece += "║\n";
+    pieceString.append("║\n");
 
     // adds all the values of the beats
-    for (int i = 0; i < numberOfBeats; i++) {
-      piece += '║';
+    for (int i = 0; i <= lastBeat; i++) {
+      pieceString.append('║');
 
-      String number = Integer.toString(i);
-      // pads the number string until it is the required number of characters
-      while (number.length() < beatNumberLength) {
-        number = ' ' + number;
+      String number = String.format("%" + beatNumberLength + "d", i);
+      pieceString.append(number);
+
+      for (char c : this.processBeat(i, minNote.notePlace(), numberOfColumns)) {
+        pieceString.append("  ");
+        pieceString.append(c);
+        pieceString.append("  ");
       }
 
-      piece += number;
-
-      for (char c : beatStrings.get(i)) {
-        piece += "  " + c + "  ";
-      }
-
-      piece += "║\n";
+      pieceString.append("║\n");
     }
 
     // the last line
-    piece += '╚' + this.stringMultiply("=", beatNumberLength + numberOfColumns * 5) + '╝';
+    pieceString.append('╚');
+    pieceString.append(this.charMultiply('=', beatNumberLength + numberOfColumns * 5));
+    pieceString.append('╝');
 
-    return piece;
+    return pieceString.toString();
   }
 
   // returns string that repeats the given string s factor number times
-  private String stringMultiply(String s, int factor) {
-    String multiplied = "";
-
-    for (int i = 0; i < factor; i++) {
-      multiplied += s;
-    }
+  private char[] charMultiply(char c, int factor) {
+    char[] multiplied = new char[factor];
+    Arrays.fill(multiplied, c);
 
     return multiplied;
   }
 
+  private char[] processBeat(int beat, int minNotePlace, int numberOfColumns) {
+    char[] beatValues = new char[numberOfColumns];
+    Arrays.fill(beatValues, ' ');
+
+    if (this.notesMap.containsKey(beat)) {
+      for (Note n : this.notesMap.get(beat)) {
+        // the column that this note gets placed into
+        int column = n.notePlace() - minNotePlace;
+
+        if (n.getStartBeat() == beat) {
+          beatValues[column] = 'X';
+        } else {
+          if (beatValues[column] == ' ') {
+            beatValues[column] = '|';
+          }
+        }
+      }
+    }
+
+    return beatValues;
+  }
+
+  @Override
+  public int lastBeat() {
+    int lastBeat = 0;
+
+    for (Note n : this.notesList) {
+      int noteLastBeat = n.getStartBeat() + n.getDuration() - 1;
+      if (noteLastBeat > lastBeat) {
+        lastBeat = noteLastBeat;
+      }
+    }
+
+    return lastBeat;
+  }
 
 }
