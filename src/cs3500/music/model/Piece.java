@@ -26,6 +26,7 @@ public class Piece implements IMusicModel<Note> {
     this.addAll(notes);
   }
 
+  // TODO remove this test comment
   @Override
   public void add(Note note) {
     // adding note to notesList
