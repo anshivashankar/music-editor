@@ -27,6 +27,7 @@ public class Piece implements IMusicModel<Note> {
   }
 
   // TODO remove this test comment
+  // TODO remove this test comment as well
   @Override
   public void add(Note note) {
     // adding note to notesList
