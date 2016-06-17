@@ -12,6 +12,8 @@ public final class Note implements Comparable<Note> {
   private final int duration;
   private final int startBeat;
   public static final int BEATS_IN_WHOLE_NOTE = 4;
+  private final int volume;
+  private final int instrument;
 
   public Note(Pitch pitch, Octave octave, int duration, int startBeat) {
     if (pitch == null) {
@@ -33,6 +35,9 @@ public final class Note implements Comparable<Note> {
       throw new IllegalArgumentException("Duration must be positive");
     }
     this.startBeat = startBeat;
+    // default variables
+    this.volume = 10;
+    this.instrument = 1;
   }
 
   /**
@@ -56,6 +61,31 @@ public final class Note implements Comparable<Note> {
       throw new IllegalArgumentException("Duration must be positive");
     }
     this.startBeat = startBeat;
+    // default variables
+    this.volume = 10;
+    this.instrument = 1;
+  }
+
+  public Note(int notePlace, int duration, int startBeat, int volume, int instrument) {
+    if (notePlace < 0 || notePlace >= Octave.values().length * Pitch.values().length) {
+      throw new IllegalArgumentException("Bad notePlace value");
+    }
+
+    this.pitch = Pitch.values()[notePlace % Pitch.values().length];
+    this.octave = Octave.values()[notePlace / Pitch.values().length];
+
+    if (duration <= 0) {
+      throw new IllegalArgumentException("Duration must be positive");
+    }
+    this.duration = duration;
+
+    if (startBeat < 0) {
+      throw new IllegalArgumentException("Duration must be positive");
+    }
+    this.startBeat = startBeat;
+    // default variables
+    this.volume = volume;
+    this.instrument = instrument;
   }
 
   public Pitch getPitch() {
@@ -74,6 +104,10 @@ public final class Note implements Comparable<Note> {
     return startBeat;
   }
 
+  public int getVolume() { return volume; }
+
+  public int getInstrument() { return instrument; }
+
   @Override
   public boolean equals(Object other) {
     if (!(other instanceof Note)) {
@@ -89,10 +123,12 @@ public final class Note implements Comparable<Note> {
    * returns the place of the note in the ordering of notes based on octave and pitch value where
    * the ordinal value takes higher precedence
    *
+   * NOTE: made notePlace() public, so that it can be used in the views.
+   *
    * @return the place of the note in the ordering of notes based on octave and pitch value where
    * the ordinal value takes higher precedence
    */
-  protected int notePlace() {
+  public int notePlace() {
     return (this.octave.ordinal() * Pitch.values().length) + this.pitch.ordinal();
   }
 

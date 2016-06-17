@@ -61,14 +61,6 @@ public interface IMusicModel<K> {
    */
   List<K> getAllNotes();
 
-  /**
-   * returns a String that represents the piece of music in and only shows the min to max notes
-   * required
-   *
-   * @return a String that represents the piece of music in and only shows the min to max notes
-   * required
-   */
-  String showPiece();
 
   /**
    * returns the last beat that is played in the piece of music
@@ -76,4 +68,16 @@ public interface IMusicModel<K> {
    * @return the last beat that is played in the piece of music
    */
   int lastBeat();
+
+  /**
+   * returns the tempo of the IMusicModel.
+   * @return tempo of the IMusicModel
+   */
+  int getTempo();
+
+  /**
+   * Changes the tempo in a IMusicModel to the value specified, in microseconds
+   * @param time a long that specifies how long each beat will last for.
+   */
+  void setTempo(int time);
 }
