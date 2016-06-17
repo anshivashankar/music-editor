@@ -69,7 +69,7 @@ public class MIDIView implements IView {
       }
     }
     try {
-      Thread.sleep(controller.lastBeat() * controller.getTempo());
+      Thread.sleep((long)controller.lastBeat() * (long)controller.getTempo());
     } catch(InterruptedException e) {
       e.printStackTrace();
     }

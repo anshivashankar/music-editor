@@ -65,7 +65,7 @@ public final class Note implements Comparable<Note> {
     this.pitch = Pitch.values()[notePlace % Pitch.values().length];
     this.octave = Octave.values()[notePlace / Pitch.values().length];
 
-    if (duration <= 0) {
+    if (duration < 0) {
       throw new IllegalArgumentException("Duration must be positive");
     }
     this.duration = duration;

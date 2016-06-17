@@ -59,6 +59,11 @@ public class NoteTest {
     assertEquals(Note.BEATS_IN_WHOLE_NOTE, n1.getDuration());
   }
 
+  @Test (expected = IllegalArgumentException.class)
+  public void testLowDuration() {
+    new Note(60, -1, 2);
+  }
+
   @Test
   public void testEquals() {
     assertEquals(n1, n1);
