@@ -37,7 +37,7 @@ public class MIDIView implements IView {
     }
   }
 
-  public void playNote() throws InvalidMidiDataException {
+/*  public void playNote() throws InvalidMidiDataException {
 
     MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, 1, 60, 64);
     MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, 1, 60, 64);
@@ -50,7 +50,7 @@ public class MIDIView implements IView {
     }
     this.receiver.close(); // Only call this once you're done playing *all* notes
 
-  }
+}*/
 
   public void view() {
     List<Note> notes = controller.getAllNotes();
@@ -63,14 +63,10 @@ public class MIDIView implements IView {
         this.receiver.send(start, note.getStartBeat() * controller.getTempo());
         this.receiver.send(stop, (note.getStartBeat() + note.getDuration())
                 * controller.getTempo() );
-
       }
       catch(InvalidMidiDataException e) {
-        //System.out.println("shouldn't come here");
         e.printStackTrace();
       }
-
-
     }
     try {
       Thread.sleep(controller.lastBeat() * controller.getTempo());
