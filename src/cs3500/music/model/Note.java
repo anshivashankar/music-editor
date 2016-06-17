@@ -104,6 +104,10 @@ public final class Note implements Comparable<Note> {
     return startBeat;
   }
 
+  public int getVolume() { return volume; }
+
+  public int getInstrument() { return instrument; }
+
   @Override
   public boolean equals(Object other) {
     if (!(other instanceof Note)) {

@@ -43,4 +43,6 @@ public class MusicController {
     return piece.lastBeat();
   }
 
+  public int getTempo() { return piece.getTempo(); }
+
 }

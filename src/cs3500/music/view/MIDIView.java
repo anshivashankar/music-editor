@@ -27,7 +27,6 @@ public class MIDIView implements IView {
   public MIDIView() {
     Synthesizer synth2 = null;
     Receiver rec = null;
-
     try {
       synth2 = MidiSystem.getSynthesizer();
       rec = synth2.getReceiver();
@@ -47,12 +46,12 @@ public class MIDIView implements IView {
 
   public void playNote() throws InvalidMidiDataException {
 
-    MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, 0, 60, 64);
-    MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, 0, 60, 64);
+    MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, 1, 60, 64);
+    MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, 1, 60, 64);
     this.receiver.send(start, -1);
     this.receiver.send(stop, this.synth.getMicrosecondPosition() + 200000);
     try {
-      Thread.sleep(5000);
+      Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
@@ -64,14 +63,26 @@ public class MIDIView implements IView {
     List<Note> notes = controller.getAllNotes();
     for(Note note : notes) {
       try {
-        MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, 0, 60, 64);
-        MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, 0, 60, 64);
+        MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, note.getInstrument(),
+                note.notePlace(), note.getVolume());
+        MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, note.getInstrument(),
+                note.notePlace(), note.getVolume());
+        this.receiver.send(start, note.getStartBeat() * controller.getTempo());
+        this.receiver.send(stop, (note.getStartBeat() + note.getDuration())
+                * controller.getTempo() );
+
+        try {
+          Thread.sleep(controller.lastBeat() * controller.getTempo());
+        } catch(InterruptedException e) {
+          e.printStackTrace();
+        }
+
       }
       catch(InvalidMidiDataException e) {
-        System.out.println("shouldn't come here");
+        //System.out.println("shouldn't come here");
+        e.printStackTrace();
       }
+      this.receiver.close();
     }
   }
-
-
 }
