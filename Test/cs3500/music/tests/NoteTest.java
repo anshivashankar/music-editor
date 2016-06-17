@@ -121,7 +121,7 @@ public class NoteTest {
 
     Note n5 = new Note(127, 1, 2);
     Note n6 = new Note(Note.Pitch.G, Note.Octave.Nine, 1, 2);
-    assertEquals(n3, n4);
+    assertEquals(n5, n6);
   }
 
 }
