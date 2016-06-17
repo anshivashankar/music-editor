@@ -16,6 +16,11 @@ public final class Note implements Comparable<Note> {
   private final int instrument;
 
   public Note(Pitch pitch, Octave octave, int duration, int startBeat) {
+    this(pitch, octave, duration, startBeat, 10, 0);
+  }
+
+  public Note(Pitch pitch, Octave octave, int duration,
+              int startBeat, int volume, int instrument) {
     if (pitch == null) {
       throw new IllegalArgumentException("Pitch must not be null");
     }
@@ -36,8 +41,8 @@ public final class Note implements Comparable<Note> {
     }
     this.startBeat = startBeat;
     // default variables
-    this.volume = 10;
-    this.instrument = 1;
+    this.volume = volume;
+    this.instrument = instrument;
   }
 
   /**
@@ -45,31 +50,17 @@ public final class Note implements Comparable<Note> {
    * function
    */
   public Note(int notePlace, int duration, int startBeat) {
-    if (notePlace < 0 || notePlace >= Octave.values().length * Pitch.values().length) {
-      throw new IllegalArgumentException("Bad notePlace value");
-    }
-
-    this.pitch = Pitch.values()[notePlace % Pitch.values().length];
-    this.octave = Octave.values()[notePlace / Pitch.values().length];
-
-    if (duration <= 0) {
-      throw new IllegalArgumentException("Duration must be positive");
-    }
-    this.duration = duration;
-
-    if (startBeat < 0) {
-      throw new IllegalArgumentException("Duration must be positive");
-    }
-    this.startBeat = startBeat;
-    // default variables
-    this.volume = 10;
-    this.instrument = 1;
+    this(notePlace, duration,  startBeat, 10, 0);
   }
 
   public Note(int notePlace, int duration, int startBeat, int volume, int instrument) {
-    if (notePlace < 0 || notePlace >= Octave.values().length * Pitch.values().length) {
+    // notePlace cannot be less than 12 because that would be a negative
+    if (notePlace < 12 || notePlace > Octave.values().length * Pitch.values().length + 7) {
       throw new IllegalArgumentException("Bad notePlace value");
     }
+
+    // subtract 12 to match up with the midi pitch value
+    notePlace -= 12;
 
     this.pitch = Pitch.values()[notePlace % Pitch.values().length];
     this.octave = Octave.values()[notePlace / Pitch.values().length];
@@ -104,9 +95,13 @@ public final class Note implements Comparable<Note> {
     return startBeat;
   }
 
-  public int getVolume() { return volume; }
+  public int getVolume() {
+    return volume;
+  }
 
-  public int getInstrument() { return instrument; }
+  public int getInstrument() {
+    return instrument;
+  }
 
   @Override
   public boolean equals(Object other) {
@@ -129,7 +124,8 @@ public final class Note implements Comparable<Note> {
    * the ordinal value takes higher precedence
    */
   public int notePlace() {
-    return (this.octave.ordinal() * Pitch.values().length) + this.pitch.ordinal();
+    // add the 12 so it matches up with midi pitch values
+    return (this.octave.ordinal() * Pitch.values().length) + this.pitch.ordinal() + 7;
   }
 
   @Override
@@ -177,7 +173,7 @@ public final class Note implements Comparable<Note> {
    * Represents the various octaves that are allowed in pieces of music
    */
   public enum Octave {
-    One(1), Two(2), Three(3), Four(4), Five(5), Six(6), Seven(7), Eight(8), Nine(9), Ten(10);
+    Zero(0), One(1), Two(2), Three(3), Four(4), Five(5), Six(6), Seven(7), Eight(8), Nine(9);
 
     private final int value;
 

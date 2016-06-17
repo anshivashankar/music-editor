@@ -36,12 +36,12 @@ public class NoteTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorLowNotePlace() {
-    new Note(-1, 5, 5);
+    new Note(11, 5, 5);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorHighNotePlace() {
-    new Note(Note.Octave.values().length * Note.Pitch.values().length, 5, 5);
+    new Note(Note.Octave.values().length * Note.Pitch.values().length + 8, 5, 5);
   }
 
   @Test
@@ -107,6 +107,21 @@ public class NoteTest {
   public void testToString() {
     assertEquals("A5", n1.toString());
     assertEquals("D#4", n2.toString());
+  }
+
+  @Test
+  public void notePlaceIsCorrectPlace() {
+    Note n1 = new Note(60, 1, 2);
+    Note n2 = new Note(Note.Pitch.C, Note.Octave.Four, 1, 2);
+    assertEquals(n1, n2);
+
+    Note n3 = new Note(12, 1, 2);
+    Note n4 = new Note(Note.Pitch.C, Note.Octave.Zero, 1, 2);
+    assertEquals(n3, n4);
+
+    Note n5 = new Note(127, 1, 2);
+    Note n6 = new Note(Note.Pitch.G, Note.Octave.Nine, 1, 2);
+    assertEquals(n3, n4);
   }
 
 }
