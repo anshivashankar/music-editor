@@ -3,6 +3,7 @@ package cs3500.music;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+import cs3500.music.model.MusicController;
 import cs3500.music.model.Note;
 import cs3500.music.model.Piece;
 import cs3500.music.util.CompositionBuilder;
@@ -22,15 +23,24 @@ public class MusicEditor {
   public static void main(String[] args) {
     String fileName = args[0];
     String modelType = args[1];
+
+
     if(modelType.equals("console")) {
-      IView console = new ConsoleView(System.out);
-      console.view();
+      CompositionBuilder<Piece> comp = new CompositionBuilderImpl();
+      try {
+        IView console = new ConsoleView(System.out, new MusicController(MusicReader.parseFile(new FileReader(fileName), comp)));
+        console.view();
+      }
+      catch (FileNotFoundException e) {
+        System.out.println("File not found");
+      }
+      //console.view();
     }
     else if(modelType.equals("midi")) {
       // use the midi view
       CompositionBuilder<Piece> comp = new CompositionBuilderImpl();
       try {
-      IView MIDI = new MIDIView(MusicReader.parseFile(new FileReader(fileName), comp));
+      IView MIDI = new MIDIView(new MusicController(MusicReader.parseFile(new FileReader(fileName), comp)));
         MIDI.view();
       }
       catch (FileNotFoundException e) {

@@ -8,6 +8,7 @@ import cs3500.music.model.IMusicModel;
 import cs3500.music.model.MusicController;
 import cs3500.music.model.Note;
 import cs3500.music.model.Piece;
+import cs3500.music.util.CompositionBuilder;
 
 /**
  * Console view of an IMusicModel, displays it through console, using System.out.
@@ -16,16 +17,9 @@ public class ConsoleView implements IView {
   MusicController controller;
   Appendable app;
 
-  public ConsoleView(Appendable app) {
+  public ConsoleView(Appendable app, MusicController piece) {
     this.app = app;
-    IMusicModel<Note> piece = new Piece();
-    controller = new MusicController(piece);
-  }
-
-  public static void main(String[] args) {
-
-    IView console = new ConsoleView(System.out);
-    console.view();
+    controller = piece;
   }
 
   /**

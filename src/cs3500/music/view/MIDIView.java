@@ -17,10 +17,10 @@ public class MIDIView implements IView {
   private final Receiver receiver;
 
 
-  public MIDIView(IMusicModel<Note> piece) {
+  public MIDIView(MusicController piece) {
     Synthesizer synth2 = null;
     Receiver rec = null;
-    controller = new MusicController(piece);
+    controller = piece;
     try {
       synth2 = MidiSystem.getSynthesizer();
       rec = synth2.getReceiver();
