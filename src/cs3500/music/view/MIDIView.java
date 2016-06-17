@@ -2,6 +2,7 @@ package cs3500.music.view;
 
 import java.util.List;
 
+import cs3500.music.model.IMusicModel;
 import cs3500.music.model.MusicController;
 import cs3500.music.model.Note;
 
@@ -15,18 +16,11 @@ public class MIDIView implements IView {
   private final Synthesizer synth;
   private final Receiver receiver;
 
-  public static void main(String[] args) {
-    MIDIView view = new MIDIView();
-    try {
-      view.playNote();
-    } catch (InvalidMidiDataException e) {
-      e.printStackTrace();
-    }
-  }
 
-  public MIDIView() {
+  public MIDIView(IMusicModel<Note> piece) {
     Synthesizer synth2 = null;
     Receiver rec = null;
+    controller = new MusicController(piece);
     try {
       synth2 = MidiSystem.getSynthesizer();
       rec = synth2.getReceiver();
@@ -41,7 +35,6 @@ public class MIDIView implements IView {
     } catch (MidiUnavailableException e) {
       e.printStackTrace();
     }
-
   }
 
   public void playNote() throws InvalidMidiDataException {
@@ -71,18 +64,19 @@ public class MIDIView implements IView {
         this.receiver.send(stop, (note.getStartBeat() + note.getDuration())
                 * controller.getTempo() );
 
-        try {
-          Thread.sleep(controller.lastBeat() * controller.getTempo());
-        } catch(InterruptedException e) {
-          e.printStackTrace();
-        }
-
       }
       catch(InvalidMidiDataException e) {
         //System.out.println("shouldn't come here");
         e.printStackTrace();
       }
-      this.receiver.close();
+
+
     }
+    try {
+      Thread.sleep(controller.lastBeat() * controller.getTempo());
+    } catch(InterruptedException e) {
+      e.printStackTrace();
+    }
+    this.receiver.close();
   }
 }

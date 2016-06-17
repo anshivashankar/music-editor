@@ -4,18 +4,22 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 
+import cs3500.music.model.IMusicModel;
 import cs3500.music.model.MusicController;
 import cs3500.music.model.Note;
+import cs3500.music.model.Piece;
 
 /**
  * Console view of an IMusicModel, displays it through console, using System.out.
  */
 public class ConsoleView implements IView {
-  MusicController controller = new MusicController();
+  MusicController controller;
   Appendable app;
 
   public ConsoleView(Appendable app) {
     this.app = app;
+    IMusicModel<Note> piece = new Piece();
+    controller = new MusicController(piece);
   }
 
   public static void main(String[] args) {

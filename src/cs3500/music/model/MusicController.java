@@ -12,9 +12,12 @@ public class MusicController {
    * The MusicController constructor, specifies that the IMusicModel being played is
    * of type Piece.
    */
-  public MusicController() {
-    piece = new Piece();
-    piece.add(new Note(Note.Pitch.D, Note.Octave.Four, 3, 2));
+  public MusicController(IMusicModel<Note> piece) {
+    this.piece = piece;
+    /*piece.add(new Note(60, 2, 1, 64, 0));
+    piece.add(new Note(65, 2, 1, 64, 0));
+    piece.add(new Note(69, 2, 1, 64, 0));*/
+    //piece.setTempo(1000000);
   }
 
   /**

@@ -10,7 +10,7 @@ public class CompositionBuilderImpl implements CompositionBuilder<Piece> {
   private Piece song;
 
 
-  protected CompositionBuilderImpl() {
+  public CompositionBuilderImpl() {
     song = new Piece();
   }
 
