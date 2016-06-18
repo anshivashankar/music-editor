@@ -119,14 +119,20 @@ public class NoteTest {
     Note n1 = new Note(60, 1, 2);
     Note n2 = new Note(Note.Pitch.C, Note.Octave.Four, 1, 2);
     assertEquals(n1, n2);
+    assertEquals(60, n1.notePlace());
+    assertEquals(60, n2.notePlace());
 
     Note n3 = new Note(12, 1, 2);
     Note n4 = new Note(Note.Pitch.C, Note.Octave.Zero, 1, 2);
     assertEquals(n3, n4);
+    assertEquals(12, n3.notePlace());
+    assertEquals(12, n4.notePlace());
 
     Note n5 = new Note(127, 1, 2);
     Note n6 = new Note(Note.Pitch.G, Note.Octave.Nine, 1, 2);
     assertEquals(n5, n6);
+    assertEquals(127, n5.notePlace());
+    assertEquals(127, n6.notePlace());
   }
 
 }

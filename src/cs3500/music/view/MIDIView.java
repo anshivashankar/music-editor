@@ -12,7 +12,7 @@ import javax.sound.midi.*;
  * MIDI view of an IMusicModel. Displays it visually, through JFrame.
  */
 public class MIDIView implements IView {
-  MusicController controller;
+  private final MusicController controller;
   private final Synthesizer synth;
   private final Receiver receiver;
 

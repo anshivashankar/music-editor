@@ -125,7 +125,7 @@ public final class Note implements Comparable<Note> {
    */
   public int notePlace() {
     // add the 12 so it matches up with midi pitch values
-    return (this.octave.ordinal() * Pitch.values().length) + this.pitch.ordinal() + 7;
+    return (this.octave.ordinal() * Pitch.values().length) + this.pitch.ordinal() + 12;
   }
 
   @Override

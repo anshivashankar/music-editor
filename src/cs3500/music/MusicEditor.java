@@ -10,6 +10,7 @@ import cs3500.music.util.CompositionBuilder;
 import cs3500.music.util.CompositionBuilderImpl;
 import cs3500.music.util.MusicReader;
 import cs3500.music.view.ConsoleView;
+import cs3500.music.view.GuiViewFrame;
 import cs3500.music.view.IView;
 import cs3500.music.view.MIDIView;
 
@@ -42,6 +43,16 @@ public class MusicEditor {
       try {
       IView MIDI = new MIDIView(new MusicController(MusicReader.parseFile(new FileReader(fileName), comp)));
         MIDI.view();
+      }
+      catch (FileNotFoundException e) {
+        System.out.println("File not found");
+      }
+    }
+    else if(modelType.equals("GUI")) {
+      CompositionBuilder<Piece> comp = new CompositionBuilderImpl();
+      try {
+        IView gui = new GuiViewFrame(new MusicController(MusicReader.parseFile(new FileReader(fileName), comp)));
+        gui.view();
       }
       catch (FileNotFoundException e) {
         System.out.println("File not found");
