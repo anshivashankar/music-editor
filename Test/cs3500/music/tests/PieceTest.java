@@ -69,6 +69,48 @@ public class PieceTest {
     m1.remove(new Note(Note.Pitch.D, Note.Octave.Three, 2, 0));
   }
 
+  @Test
+  public void testLastBeat() {
+    IMusicModel<Note> m1 = new Piece();
+    m1.addAll(new ArrayList<Note>(
+            Arrays.asList(new Note(Note.Pitch.D_SHARP, Note.Octave.Five, 4, 3),
+                    new Note(Note.Pitch.D, Note.Octave.Five, 2, 0),
+                    new Note(Note.Pitch.A, Note.Octave.Five, 2, 0))));
+
+    assertEquals(7, m1.lastBeat());
+  }
+
+  @Test
+  public void testSetGetTempo() {
+    IMusicModel<Note> m1 = new Piece();
+    m1.addAll(new ArrayList<Note>(
+            Arrays.asList(new Note(Note.Pitch.D_SHARP, Note.Octave.Five, 4, 3),
+                    new Note(Note.Pitch.D, Note.Octave.Five, 2, 0),
+                    new Note(Note.Pitch.A, Note.Octave.Five, 2, 0))));
+
+    assertEquals(5, m1.getTempo());
+
+    m1.setTempo(7);
+    assertEquals(7, m1.getTempo());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testSetBadTempo() {
+    IMusicModel<Note> m1 = new Piece();
+    m1.addAll(new ArrayList<Note>(
+            Arrays.asList(new Note(Note.Pitch.D_SHARP, Note.Octave.Five, 4, 3),
+                    new Note(Note.Pitch.D, Note.Octave.Five, 2, 0),
+                    new Note(Note.Pitch.A, Note.Octave.Five, 2, 0))));
+
+    m1.setTempo(-1);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testConstructBadTempo() {
+    IMusicModel<Note> m1 = new Piece(-1);
+  }
+
+
   /*
   @Test
   public void combineSimultaneously() {

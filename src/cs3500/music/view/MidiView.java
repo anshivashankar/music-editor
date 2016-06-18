@@ -97,13 +97,12 @@ public class MidiView implements IView {
     }
     //synth.start();
     try {
-      Thread.sleep((long)controller.lastBeat() * (long)controller.getTempo());
+      // divide my 1000 because of the microsecond to millisecond conversion
+      Thread.sleep((long)controller.lastBeat() * (long)controller.getTempo() / 1000);
     } catch(InterruptedException e) {
       e.printStackTrace();
     }
     synth.close();
     this.receiver.close();
-
-
   }
 }

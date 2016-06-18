@@ -23,6 +23,9 @@ public class Piece implements IMusicModel<Note> {
 
   public Piece(int tempo) {
     this();
+    if (tempo <= 0) {
+      throw new IllegalArgumentException("Tempo cannot be negative");
+    }
     this.tempo = tempo;
   }
 
@@ -127,7 +130,7 @@ public class Piece implements IMusicModel<Note> {
     int lastBeat = 0;
 
     for (Note n : this.notesList) {
-      int noteLastBeat = n.getStartBeat() + n.getDuration() - 1;
+      int noteLastBeat = n.getStartBeat() + n.getDuration();
       if (noteLastBeat > lastBeat) {
         lastBeat = noteLastBeat;
       }
@@ -143,6 +146,9 @@ public class Piece implements IMusicModel<Note> {
 
   @Override
   public void setTempo(int t) {
+    if (t <= 0) {
+      throw new IllegalArgumentException("Tempo cannot be negative");
+    }
     this.tempo = t;
   }
 
