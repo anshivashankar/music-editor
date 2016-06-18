@@ -2,8 +2,8 @@ package cs3500.music.tests;
 
 import org.junit.Test;
 
+import cs3500.music.controller.MusicControllerImpl;
 import cs3500.music.model.IMusicModel;
-import cs3500.music.model.MusicController;
 import cs3500.music.model.Note;
 import cs3500.music.model.Piece;
 import cs3500.music.view.MidiView;
@@ -23,7 +23,7 @@ public class MidiViewTest {
     piece.add(new Note(Note.Pitch.D, Note.Octave.Eight, 5, 0, 60, 0));
     piece.add(new Note(Note.Pitch.D, Note.Octave.Eight, 5, 0, 60, 0));
     piece.add(new Note(Note.Pitch.C, Note.Octave.Eight, 5, 0, 60, 0));
-    MusicController controller = new MusicController(piece);
+    MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
     MidiView view = new MidiView(controller, build);
     view.view();
     assertEquals(build.toString(), "got receiver\n" +
@@ -42,7 +42,7 @@ public class MidiViewTest {
     build = new StringBuilder();
 
 
-    controller = new MusicController(piece);
+    controller = new MusicControllerImpl<Note>(piece);
     view = new MidiView(controller, build);
     view.view();
     assertEquals(build.toString(), "got receiver\n" +
@@ -56,7 +56,7 @@ public class MidiViewTest {
 
     piece.add(new Note(60, 5, 5, 60, 1));
 
-    controller = new MusicController(piece);
+    controller = new MusicControllerImpl<Note>(piece);
     view = new MidiView(controller, build);
     view.view();
     assertEquals(build.toString(), "got receiver\n" +
@@ -74,7 +74,7 @@ public class MidiViewTest {
     piece.add(new Note(65, 5, 5, 60, 1));
     piece.add(new Note(69, 5, 5, 60, 1));
 
-    controller = new MusicController(piece);
+    controller = new MusicControllerImpl<Note>(piece);
     view = new MidiView(controller, build);
     view.view();
     assertEquals(build.toString(), "got receiver\n" +
@@ -104,7 +104,7 @@ public class MidiViewTest {
     piece.add(new Note(65, 10, 20, 60, 1));
     piece.add(new Note(69, 10, 20, 60, 1));
 
-    controller = new MusicController(piece);
+    controller = new MusicControllerImpl<Note>(piece);
     view = new MidiView(controller, build);
     view.view();
     assertEquals(build.toString(), "got receiver\n" +

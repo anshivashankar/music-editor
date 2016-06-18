@@ -54,12 +54,10 @@ public class MockSynth implements Synthesizer {
 
   public void open() {
     string.append("midi opened\n");
-    return;
   }
 
   public void close() {
     string.append("midi closed\n");
-    return;
   }
 
   @Override

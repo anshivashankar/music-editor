@@ -1,11 +1,11 @@
 package cs3500.music.view;
 
 import java.awt.*;
-import java.awt.event.MouseListener; // Possibly of interest for handling mouse events
 
 import javax.swing.*;
 
-import cs3500.music.model.MusicController;
+import cs3500.music.controller.MusicControllerImpl;
+import cs3500.music.model.Note;
 
 /**
  * A skeleton Frame (i.e., a window) in Swing
@@ -17,7 +17,7 @@ public class GuiViewFrame extends JFrame implements IView {
   /**
    * Creates new GuiView
    */
-  public GuiViewFrame(MusicController piece) {
+  public GuiViewFrame(MusicControllerImpl<Note> piece) {
     this.setLayout(new BorderLayout());
     this.displayPanel = new ConcreteGuiViewPanel(piece);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

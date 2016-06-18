@@ -107,7 +107,7 @@ public class PieceTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testConstructBadTempo() {
-    IMusicModel<Note> m1 = new Piece(-1);
+    new Piece(-1);
   }
 
 

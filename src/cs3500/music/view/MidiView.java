@@ -2,7 +2,7 @@ package cs3500.music.view;
 
 import java.util.List;
 
-import cs3500.music.model.MusicController;
+import cs3500.music.controller.MusicControllerImpl;
 import cs3500.music.model.Note;
 
 import javax.sound.midi.*;
@@ -11,12 +11,12 @@ import javax.sound.midi.*;
  * MIDI view of an IMusicModel. Displays it visually, through JFrame.
  */
 public class MidiView implements IView {
-  MusicController controller;
+  MusicControllerImpl<Note> controller;
   private final Synthesizer synth;
   private final Receiver receiver;
 
 
-  public MidiView(MusicController piece) {
+  public MidiView(MusicControllerImpl<Note> piece) {
     Synthesizer synth2 = null;
     Receiver rec = null;
     controller = piece;
@@ -38,11 +38,11 @@ public class MidiView implements IView {
 
   /**
    * Convenience constructor to test MidiView.
-   * @param piece of type MusicController, given the piece that we would like to test.
+   * @param piece of type MusicControllerImpl, given the piece that we would like to test.
    * @param string of type StringBuilder, so that we can log the calls of start(), open(),
    *               close(), and stop().
    */
-  public MidiView(MusicController piece, StringBuilder string) {
+  public MidiView(MusicControllerImpl<Note> piece, StringBuilder string) {
     Synthesizer synth2 = null;
     Receiver rec = null;
     controller = piece;

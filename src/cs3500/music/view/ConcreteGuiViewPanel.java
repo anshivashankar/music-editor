@@ -9,7 +9,7 @@ import java.util.List;
 
 import javax.swing.*;
 
-import cs3500.music.model.MusicController;
+import cs3500.music.controller.MusicControllerImpl;
 import cs3500.music.model.Note;
 
 /**
@@ -17,13 +17,13 @@ import cs3500.music.model.Note;
  */
 public class ConcreteGuiViewPanel extends JPanel {
 
-  private final MusicController controller;
+  private final MusicControllerImpl<Note> controller;
   private static final int boxSize = 20;
   private final  Note minNote;
   private final int numberOfRows;
   private final int numberOfColumns;
 
-  ConcreteGuiViewPanel(MusicController piece) {
+  ConcreteGuiViewPanel(MusicControllerImpl<Note> piece) {
     super();
     this.controller = piece;
     Note maxNote = Collections.max(controller.getAllNotes());
