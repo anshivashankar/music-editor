@@ -2,10 +2,16 @@ package cs3500.music.tests;
 
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
 import cs3500.music.model.IMusicModel;
 import cs3500.music.model.MusicController;
 import cs3500.music.model.Note;
 import cs3500.music.model.Piece;
+import cs3500.music.util.CompositionBuilder;
+import cs3500.music.util.CompositionBuilderImpl;
+import cs3500.music.util.MusicReader;
 import cs3500.music.view.MidiView;
 
 import static org.junit.Assert.assertEquals;
