@@ -6,7 +6,7 @@ import cs3500.music.model.Piece;
 /**
  * Created by ashwinshivashankar on 6/16/16.
  */
-public class CompositionBuilderImpl implements CompositionBuilder<Piece> {
+public final class CompositionBuilderImpl implements CompositionBuilder<Piece> {
   private Piece song;
 
 

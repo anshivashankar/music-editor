@@ -4,11 +4,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 
-import cs3500.music.model.IMusicModel;
 import cs3500.music.model.MusicController;
 import cs3500.music.model.Note;
-import cs3500.music.model.Piece;
-import cs3500.music.util.CompositionBuilder;
 
 /**
  * Console view of an IMusicModel, displays it through console, using System.out.

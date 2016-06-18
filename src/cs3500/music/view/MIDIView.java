@@ -2,7 +2,6 @@ package cs3500.music.view;
 
 import java.util.List;
 
-import cs3500.music.model.IMusicModel;
 import cs3500.music.model.MusicController;
 import cs3500.music.model.Note;
 
@@ -11,18 +10,44 @@ import javax.sound.midi.*;
 /**
  * MIDI view of an IMusicModel. Displays it visually, through JFrame.
  */
-public class MIDIView implements IView {
-  private final MusicController controller;
+public class MidiView implements IView {
+  MusicController controller;
   private final Synthesizer synth;
   private final Receiver receiver;
 
 
-  public MIDIView(MusicController piece) {
+  public MidiView(MusicController piece) {
     Synthesizer synth2 = null;
     Receiver rec = null;
     controller = piece;
     try {
       synth2 = MidiSystem.getSynthesizer();
+      rec = synth2.getReceiver();
+    } catch (MidiUnavailableException e) {
+      e.printStackTrace();
+    }
+    receiver = rec;
+    synth = synth2;
+
+    try {
+      synth.open();
+    } catch (MidiUnavailableException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Convenience constructor to test MidiView.
+   * @param piece of type MusicController, given the piece that we would like to test.
+   * @param string of type StringBuilder, so that we can log the calls of start(), open(),
+   *               close(), and stop().
+   */
+  public MidiView(MusicController piece, StringBuilder string) {
+    Synthesizer synth2 = null;
+    Receiver rec = null;
+    controller = piece;
+    try {
+      synth2 = new MockSynth(string);
       rec = synth2.getReceiver();
     } catch (MidiUnavailableException e) {
       e.printStackTrace();
@@ -53,6 +78,8 @@ public class MIDIView implements IView {
 }*/
 
   public void view() {
+
+//    Track track  = synth.createTrack();
     List<Note> notes = controller.getAllNotes();
     for(Note note : notes) {
       try {
@@ -68,11 +95,15 @@ public class MIDIView implements IView {
         e.printStackTrace();
       }
     }
+    //synth.start();
     try {
       Thread.sleep((long)controller.lastBeat() * (long)controller.getTempo());
     } catch(InterruptedException e) {
       e.printStackTrace();
     }
+    synth.close();
     this.receiver.close();
+
+
   }
 }
