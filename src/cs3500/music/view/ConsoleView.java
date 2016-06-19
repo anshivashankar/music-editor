@@ -20,8 +20,8 @@ public class ConsoleView implements IView {
   }
 
   /**
-   * outputs to System.out that represents the piece of music in and only shows the min to max notes
-   * required
+   * outputs to System.out that represents the piece of music in and only shows the min to max
+   * notes required
    */
   public void view() {
 
