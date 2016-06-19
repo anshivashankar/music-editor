@@ -12,7 +12,7 @@ import javax.sound.midi.Receiver;
  */
 public class MockReceiver implements Receiver {
 
-  StringBuilder string;
+  private final StringBuilder string;
 
   /**
    * Constructor for a MockReciever, takes in a StringBuilder so that we can log its actions.

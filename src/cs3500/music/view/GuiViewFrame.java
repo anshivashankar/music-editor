@@ -8,7 +8,7 @@ import cs3500.music.controller.MusicController;
 import cs3500.music.model.Note;
 
 /**
- * A skeleton Frame (i.e., a window) in Swing
+ * A Frame that houses the visual component of a song
  */
 public class GuiViewFrame extends JFrame implements IView {
 

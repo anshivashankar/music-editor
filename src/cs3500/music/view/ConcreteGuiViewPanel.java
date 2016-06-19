@@ -11,7 +11,7 @@ import cs3500.music.controller.MusicController;
 import cs3500.music.model.Note;
 
 /**
- * A dummy view that simply draws a string
+ * A JPanel that contains a visual view of a Composition
  */
 public class ConcreteGuiViewPanel extends JPanel {
 

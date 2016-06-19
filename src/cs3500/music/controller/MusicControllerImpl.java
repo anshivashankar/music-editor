@@ -16,10 +16,6 @@ public class MusicControllerImpl<K> implements MusicController<K> {
    */
   public MusicControllerImpl(IMusicModel<K> piece) {
     this.piece = piece;
-    /*piece.add(new Note(60, 2, 1, 64, 0));
-    piece.add(new Note(65, 2, 1, 64, 0));
-    piece.add(new Note(69, 2, 1, 64, 0));*/
-    //piece.setTempo(1000000);
   }
 
   @Override

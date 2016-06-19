@@ -91,7 +91,6 @@ public class ConsoleView implements IView {
     // just puts whatever pieceString was into Appendable app, so that it can be tested
     try {
       app.append(pieceString.toString());
-      app.append("\n");
     } catch (IOException e) {
       e.printStackTrace();
     }
