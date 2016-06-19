@@ -15,10 +15,28 @@ public final class Note implements Comparable<Note> {
   private final int volume;
   private final int instrument;
 
+  /**
+   * Constructor for a Note, without volume and instrument
+   *
+   * @param pitch     of type Pitch
+   * @param octave    of type Octave
+   * @param duration  of type int
+   * @param startBeat of type int
+   */
   public Note(Pitch pitch, Octave octave, int duration, int startBeat) {
     this(pitch, octave, duration, startBeat, 10, 0);
   }
 
+  /**
+   * Constructor for a Note, with Pitch, octave, volume and instrument
+   *
+   * @param pitch      of type Pitch
+   * @param octave     of type Octave
+   * @param duration   of type dint
+   * @param startBeat  of type int
+   * @param volume     of type int
+   * @param instrument of type int
+   */
   public Note(Pitch pitch, Octave octave, int duration,
               int startBeat, int volume, int instrument) {
     if (pitch == null) {
@@ -53,6 +71,15 @@ public final class Note implements Comparable<Note> {
     this(notePlace, duration, startBeat, 10, 0);
   }
 
+  /**
+   * Constructor for a Note, using a Midi-like int.
+   *
+   * @param notePlace  of type int
+   * @param duration   of type int
+   * @param startBeat  of type int
+   * @param volume     of type int
+   * @param instrument of type int
+   */
   public Note(int notePlace, int duration, int startBeat, int volume, int instrument) {
     // notePlace cannot be less than 12 because that would be a negative
     if (notePlace < 12 || notePlace > Octave.values().length * Pitch.values().length + 7) {
@@ -79,26 +106,56 @@ public final class Note implements Comparable<Note> {
     this.instrument = instrument;
   }
 
+  /**
+   * Gets the Pitch of this Note.
+   *
+   * @return the Pitch of this Note.
+   */
   public Pitch getPitch() {
     return pitch;
   }
 
+  /**
+   * Gets the Octave of this Note.
+   *
+   * @return Gets the Octave of this Note.
+   */
   public Octave getOctave() {
     return octave;
   }
 
+  /**
+   * Gets the Duration of this Note.
+   *
+   * @return the Duration of this Note.
+   */
   public int getDuration() {
     return duration;
   }
 
+  /**
+   * Gets the start beat of this Note.
+   *
+   * @return the start beat of this Note.
+   */
   public int getStartBeat() {
     return startBeat;
   }
 
+  /**
+   * Gets the Volume of this Note.
+   *
+   * @return the Volume of this Note.
+   */
   public int getVolume() {
     return volume;
   }
 
+  /**
+   * Gets the Instrument of this Note.
+   *
+   * @return the Instrument of this Note.
+   */
   public int getInstrument() {
     return instrument;
   }

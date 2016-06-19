@@ -11,6 +11,9 @@ public final class CompositionBuilderImpl implements CompositionBuilder<IMusicMo
   private IMusicModel<Note> song;
 
 
+  /**
+   * The constructor for a CompositionBuilderImpl. Simply creates a new Piece.
+   */
   public CompositionBuilderImpl() {
     song = new Piece();
   }

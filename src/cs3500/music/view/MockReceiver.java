@@ -14,6 +14,11 @@ public class MockReceiver implements Receiver {
 
   StringBuilder string;
 
+  /**
+   * Constructor for a MockReciever, takes in a StringBuilder so that we can log its actions.
+   *
+   * @param string of type StringBuilder, so that we can log the Receiver's actions.
+   */
   public MockReceiver(StringBuilder string) {
     this.string = string;
   }

@@ -6,6 +6,8 @@ package cs3500.music.view;
  */
 public interface IView {
 
+  /**
+   * Call this method  when you would like to view the kind of View specified.
+   */
   void view();
-
 }

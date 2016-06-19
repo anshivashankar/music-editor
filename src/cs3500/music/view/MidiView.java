@@ -21,7 +21,11 @@ public class MidiView implements IView {
   private final Synthesizer synth;
   private final Receiver receiver;
 
-
+  /**
+   * Constructor of a MidiView.
+   *
+   * @param piece of type MusicControllerImpl, given the piece that we would like to test.
+   */
   public MidiView(MusicController<Note> piece) {
     Synthesizer synth2 = null;
     Receiver rec = null;
@@ -69,24 +73,7 @@ public class MidiView implements IView {
     }
   }
 
-/*  public void playNote() throws InvalidMidiDataException {
-
-    MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, 1, 60, 64);
-    MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, 1, 60, 64);
-    this.receiver.send(start, -1);
-    this.receiver.send(stop, this.synth.getMicrosecondPosition() + 200000);
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    this.receiver.close(); // Only call this once you're done playing *all* notes
-
-}*/
-
   public void view() {
-
-//    Track track  = synth.createTrack();
     List<Note> notes = controller.getAllNotes();
     for (Note note : notes) {
       try {
@@ -101,7 +88,6 @@ public class MidiView implements IView {
         e.printStackTrace();
       }
     }
-    //synth.start();
     try {
       // divide my 1000 because of the microsecond to millisecond conversion
       Thread.sleep((long) controller.lastBeat() * (long) controller.getTempo() / 1000);

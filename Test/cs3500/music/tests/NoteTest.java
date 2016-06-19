@@ -7,6 +7,9 @@ import cs3500.music.model.Note;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+/**
+ * Tests for the Note class.
+ */
 public class NoteTest {
 
   Note n1 = new Note(Note.Pitch.A, Note.Octave.Five, Note.BEATS_IN_WHOLE_NOTE, 1);

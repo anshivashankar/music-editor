@@ -21,6 +21,11 @@ public class MockSynth implements Synthesizer {
 
   private final StringBuilder string;
 
+  /**
+   * Constructor for building a MockSynth.
+   *
+   * @param string of type StringBuilder, passed in so that we can log what's happening.
+   */
   public MockSynth(StringBuilder string) {
     this.string = string;
   }

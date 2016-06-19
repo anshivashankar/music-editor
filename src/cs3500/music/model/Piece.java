@@ -15,12 +15,20 @@ public class Piece implements IMusicModel<Note> {
   private final ArrayList<Note> notesList;
   private int tempo;
 
+  /**
+   * The default Constructor for a Piece.
+   */
   public Piece() {
     this.notesMap = new HashMap<Integer, ArrayList<Note>>();
     this.notesList = new ArrayList<Note>();
     this.tempo = 5;
   }
 
+  /**
+   * The constructor for a Piece if we want to start with Tempo.
+   *
+   * @param tempo of type int
+   */
   public Piece(int tempo) {
     this();
     if (tempo <= 0) {
@@ -29,11 +37,22 @@ public class Piece implements IMusicModel<Note> {
     this.tempo = tempo;
   }
 
+  /**
+   * The constructor for a Piece if we want to start with a List of Notes.
+   *
+   * @param notes of type List of Notes.
+   */
   public Piece(List<Note> notes) {
     this();
     this.addAll(notes);
   }
 
+  /**
+   * The constructor for a Piece if we want to start out with a list of notes and a tempo.
+   *
+   * @param notes of type List of Notes.
+   * @param tempo of type int.
+   */
   public Piece(List<Note> notes, int tempo) {
     this(tempo);
     this.addAll(notes);
@@ -151,6 +170,4 @@ public class Piece implements IMusicModel<Note> {
     }
     this.tempo = t;
   }
-
-
 }

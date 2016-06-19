@@ -99,7 +99,13 @@ public class ConsoleView implements IView {
   }
 
 
-  // returns string that repeats the given string s factor number times
+  /**
+   * returns string that repeats the given string s factor number times
+   *
+   * @param c      of type character
+   * @param factor of type int
+   * @return string that repeats the given string that many times.
+   */
   private char[] charMultiply(char c, int factor) {
     char[] multiplied = new char[factor];
     Arrays.fill(multiplied, c);
@@ -107,6 +113,14 @@ public class ConsoleView implements IView {
     return multiplied;
   }
 
+  /**
+   * Processes the Beat so that it will display properly.
+   *
+   * @param beat            of type int
+   * @param minNotePlace    of type int
+   * @param numberOfColumns of type int
+   * @return An array of chars that represents how the note will be displayed in the console.
+   */
   private char[] processBeat(int beat, int minNotePlace, int numberOfColumns) {
     char[] beatValues = new char[numberOfColumns];
     Arrays.fill(beatValues, ' ');
