@@ -1,29 +1,27 @@
 package cs3500.music.view;
 
-import java.awt.Graphics;
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.*;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.*;
 
-import cs3500.music.controller.MusicControllerImpl;
+import cs3500.music.controller.MusicController;
 import cs3500.music.model.Note;
 
 /**
- * A dummy view that simply draws a string 
+ * A dummy view that simply draws a string
  */
 public class ConcreteGuiViewPanel extends JPanel {
 
-  private final MusicControllerImpl<Note> controller;
+  private final MusicController<Note> controller;
   private static final int boxSize = 20;
-  private final  Note minNote;
+  private final Note minNote;
   private final int numberOfRows;
   private final int numberOfColumns;
 
-  ConcreteGuiViewPanel(MusicControllerImpl<Note> piece) {
+  ConcreteGuiViewPanel(MusicController<Note> piece) {
     super();
     this.controller = piece;
     Note maxNote = Collections.max(controller.getAllNotes());
@@ -34,7 +32,7 @@ public class ConcreteGuiViewPanel extends JPanel {
   }
 
   @Override
-  public void paintComponent(Graphics g){
+  public void paintComponent(Graphics g) {
     // Handle the default painting
     super.paintComponent(g);
     // Look for more documentation about the Graphics class,

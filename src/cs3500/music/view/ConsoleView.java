@@ -4,17 +4,17 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 
-import cs3500.music.controller.MusicControllerImpl;
+import cs3500.music.controller.MusicController;
 import cs3500.music.model.Note;
 
 /**
  * Console view of an IMusicModel, displays it through console, using System.out.
  */
 public class ConsoleView implements IView {
-  private MusicControllerImpl<Note> controller;
+  private MusicController<Note> controller;
   private Appendable app;
 
-  public ConsoleView(Appendable app, MusicControllerImpl<Note> piece) {
+  public ConsoleView(Appendable app, MusicController<Note> piece) {
     this.app = app;
     controller = piece;
   }
@@ -91,6 +91,7 @@ public class ConsoleView implements IView {
     // just puts whatever pieceString was into Appendable app, so that it can be tested
     try {
       app.append(pieceString.toString());
+      app.append("\n");
     } catch (IOException e) {
       e.printStackTrace();
     }

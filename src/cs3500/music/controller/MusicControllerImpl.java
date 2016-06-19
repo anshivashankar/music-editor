@@ -3,7 +3,6 @@ package cs3500.music.controller;
 import java.util.List;
 
 import cs3500.music.model.IMusicModel;
-import cs3500.music.model.Note;
 
 /**
  * The Model Controller, only allows the View(s) to have read-only access.
@@ -12,8 +11,8 @@ public class MusicControllerImpl<K> implements MusicController<K> {
   private IMusicModel<K> piece;
 
   /**
-   * The MusicControllerImpl constructor, specifies that the IMusicModel being played is
-   * of type Piece.
+   * The MusicControllerImpl constructor, specifies that the IMusicModel being played is of type
+   * Piece.
    */
   public MusicControllerImpl(IMusicModel<K> piece) {
     this.piece = piece;
@@ -39,6 +38,8 @@ public class MusicControllerImpl<K> implements MusicController<K> {
   }
 
   @Override
-  public int getTempo() { return piece.getTempo(); }
+  public int getTempo() {
+    return piece.getTempo();
+  }
 
 }

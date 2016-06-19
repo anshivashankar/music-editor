@@ -153,5 +153,4 @@ public class Piece implements IMusicModel<Note> {
   }
 
 
-
 }

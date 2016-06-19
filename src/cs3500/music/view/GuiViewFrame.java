@@ -4,7 +4,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import cs3500.music.controller.MusicControllerImpl;
+import cs3500.music.controller.MusicController;
 import cs3500.music.model.Note;
 
 /**
@@ -17,7 +17,7 @@ public class GuiViewFrame extends JFrame implements IView {
   /**
    * Creates new GuiView
    */
-  public GuiViewFrame(MusicControllerImpl<Note> piece) {
+  public GuiViewFrame(MusicController<Note> piece) {
     this.setLayout(new BorderLayout());
     this.displayPanel = new ConcreteGuiViewPanel(piece);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -26,12 +26,12 @@ public class GuiViewFrame extends JFrame implements IView {
   }
 
   @Override
-  public void view(){
+  public void view() {
     this.setVisible(true);
   }
 
   @Override
-  public Dimension getPreferredSize(){
+  public Dimension getPreferredSize() {
     return displayPanel.getPreferredSize();
   }
 }

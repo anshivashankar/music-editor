@@ -2,21 +2,27 @@ package cs3500.music.view;
 
 import java.util.List;
 
-import cs3500.music.controller.MusicControllerImpl;
-import cs3500.music.model.Note;
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiMessage;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Receiver;
+import javax.sound.midi.ShortMessage;
+import javax.sound.midi.Synthesizer;
 
-import javax.sound.midi.*;
+import cs3500.music.controller.MusicController;
+import cs3500.music.model.Note;
 
 /**
  * MIDI view of an IMusicModel. Displays it visually, through JFrame.
  */
 public class MidiView implements IView {
-  MusicControllerImpl<Note> controller;
+  private final MusicController<Note> controller;
   private final Synthesizer synth;
   private final Receiver receiver;
 
 
-  public MidiView(MusicControllerImpl<Note> piece) {
+  public MidiView(MusicController<Note> piece) {
     Synthesizer synth2 = null;
     Receiver rec = null;
     controller = piece;
@@ -38,11 +44,12 @@ public class MidiView implements IView {
 
   /**
    * Convenience constructor to test MidiView.
-   * @param piece of type MusicControllerImpl, given the piece that we would like to test.
-   * @param string of type StringBuilder, so that we can log the calls of start(), open(),
-   *               close(), and stop().
+   *
+   * @param piece  of type MusicControllerImpl, given the piece that we would like to test.
+   * @param string of type StringBuilder, so that we can log the calls of start(), open(), close(),
+   *               and stop().
    */
-  public MidiView(MusicControllerImpl<Note> piece, StringBuilder string) {
+  public MidiView(MusicController<Note> piece, StringBuilder string) {
     Synthesizer synth2 = null;
     Receiver rec = null;
     controller = piece;
@@ -81,7 +88,7 @@ public class MidiView implements IView {
 
 //    Track track  = synth.createTrack();
     List<Note> notes = controller.getAllNotes();
-    for(Note note : notes) {
+    for (Note note : notes) {
       try {
         MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, note.getInstrument(),
                 note.notePlace(), note.getVolume());
@@ -89,17 +96,16 @@ public class MidiView implements IView {
                 note.notePlace(), note.getVolume());
         this.receiver.send(start, note.getStartBeat() * controller.getTempo());
         this.receiver.send(stop, (note.getStartBeat() + note.getDuration())
-                * controller.getTempo() );
-      }
-      catch(InvalidMidiDataException e) {
+                * controller.getTempo());
+      } catch (InvalidMidiDataException e) {
         e.printStackTrace();
       }
     }
     //synth.start();
     try {
       // divide my 1000 because of the microsecond to millisecond conversion
-      Thread.sleep((long)controller.lastBeat() * (long)controller.getTempo() / 1000);
-    } catch(InterruptedException e) {
+      Thread.sleep((long) controller.lastBeat() * (long) controller.getTempo() / 1000);
+    } catch (InterruptedException e) {
       e.printStackTrace();
     }
     synth.close();

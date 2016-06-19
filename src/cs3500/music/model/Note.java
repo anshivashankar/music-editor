@@ -50,7 +50,7 @@ public final class Note implements Comparable<Note> {
    * function
    */
   public Note(int notePlace, int duration, int startBeat) {
-    this(notePlace, duration,  startBeat, 10, 0);
+    this(notePlace, duration, startBeat, 10, 0);
   }
 
   public Note(int notePlace, int duration, int startBeat, int volume, int instrument) {

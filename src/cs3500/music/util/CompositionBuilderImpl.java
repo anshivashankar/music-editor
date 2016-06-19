@@ -27,7 +27,7 @@ public final class CompositionBuilderImpl implements CompositionBuilder<IMusicMo
 
   @Override
   public void addNote(int start, int end, int instrument,
-                                           int pitch, int volume) {
-    song.add(new Note(pitch, end-start, start, volume, instrument-1));
+                      int pitch, int volume) {
+    song.add(new Note(pitch, end - start, start, volume, instrument - 1));
   }
 }

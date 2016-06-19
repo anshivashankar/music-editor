@@ -2,8 +2,6 @@ package cs3500.music.controller;
 
 import java.util.List;
 
-import cs3500.music.model.Note;
-
 /**
  * A Controller for an IMusicModel.  Parametrized over the type of Note
  */
@@ -34,6 +32,7 @@ public interface MusicController<K> {
 
   /**
    * Gets the tempo from the given IMusicModel.
+   *
    * @return the tempo from the given IMusicModel
    */
   int getTempo();

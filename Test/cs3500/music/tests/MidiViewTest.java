@@ -89,7 +89,6 @@ public class MidiViewTest {
             "receiver closing");
 
 
-
     // test with consecutive notes, and different kinds of note constructors
     piece = new Piece();
     build = new StringBuilder();

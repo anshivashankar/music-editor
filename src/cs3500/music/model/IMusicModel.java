@@ -4,8 +4,8 @@ import java.util.List;
 
 /**
  * interface for a model that represents a piece of music. Let's user write music a note at a time,
- * edit notes, and combine two pieces of music to play simultaneously or consecutively.
- * Parametrized over the type of Note that the user wishes to use
+ * edit notes, and combine two pieces of music to play simultaneously or consecutively. Parametrized
+ * over the type of Note that the user wishes to use
  */
 public interface IMusicModel<K> {
 
@@ -29,8 +29,7 @@ public interface IMusicModel<K> {
   void remove(K k);
 
   /**
-   * returns a new music model that combines this piece and the other piece with simultaneous
-   * beats
+   * returns a new music model that combines this piece and the other piece with simultaneous beats
    *
    * @param other the other piece of music
    * @return a piece of music that represents the two pieces of music combined simultaneously
@@ -71,12 +70,14 @@ public interface IMusicModel<K> {
 
   /**
    * returns the tempo of the IMusicModel.
+   *
    * @return tempo of the IMusicModel
    */
   int getTempo();
 
   /**
    * Changes the tempo in a IMusicModel to the value specified, in microseconds
+   *
    * @param time a long that specifies how long each beat will last for.
    */
   void setTempo(int time);

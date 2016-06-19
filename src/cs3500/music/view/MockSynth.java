@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiChannel;
-import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Patch;
 import javax.sound.midi.Receiver;
@@ -15,12 +14,12 @@ import javax.sound.midi.VoiceStatus;
 
 /**
  * MockSynth extends Synthesizer, however does not properly implement several methods. It simply
- * leaves them blank, but we do not use them in the MidiView. It logs all instances
- * of getReceiver(), open(), and close().
+ * leaves them blank, but we do not use them in the MidiView. It logs all instances of
+ * getReceiver(), open(), and close().
  */
 public class MockSynth implements Synthesizer {
 
-  StringBuilder string;
+  private final StringBuilder string;
 
   public MockSynth(StringBuilder string) {
     this.string = string;
