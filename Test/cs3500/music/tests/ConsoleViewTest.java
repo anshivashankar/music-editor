@@ -28,7 +28,7 @@ public class ConsoleViewTest {
                     Arrays.asList(new Note(Note.Pitch.D_SHARP, Note.Octave.Five, 4, 3),
                             new Note(Note.Pitch.D, Note.Octave.Five, 2, 0),
                             new Note(Note.Pitch.A, Note.Octave.Five, 2, 0))));
-    MusicControllerImpl controller = new MusicControllerImpl(piece);
+    MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
     IView console = new ConsoleView(build, controller);
     console.view();
     assertEquals(
@@ -51,7 +51,7 @@ public class ConsoleViewTest {
                     new Note(Note.Pitch.D, Note.Octave.Five, 2, 0),
                     new Note(Note.Pitch.A, Note.Octave.Five, 2, 0),
                     new Note(Note.Pitch.D_SHARP, Note.Octave.Five, 2, 5))));
-    MusicControllerImpl controller = new MusicControllerImpl(piece);
+    MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
     IView console = new ConsoleView(build, controller);
     console.view();
     assertEquals(
@@ -73,7 +73,7 @@ public class ConsoleViewTest {
             Arrays.asList(new Note(Note.Pitch.D_SHARP, Note.Octave.Five, 4, 3),
                     new Note(Note.Pitch.C_SHARP, Note.Octave.Five, 4, 3),
                     new Note(Note.Pitch.C, Note.Octave.Five, 4, 3))));
-    MusicControllerImpl controller = new MusicControllerImpl(piece);
+    MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
     IView console = new ConsoleView(build, controller);
     console.view();
     assertEquals(
@@ -84,7 +84,7 @@ public class ConsoleViewTest {
                             "3  X    X         X  \n" +
                             "4  |    |         |  \n" +
                             "5  |    |         |  \n" +
-                            "6  |    |         |  ", build.toString());
+                            "6  |    |         |  \n", build.toString());
   }
 
 /*

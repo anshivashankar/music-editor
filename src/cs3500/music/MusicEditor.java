@@ -6,7 +6,6 @@ import java.io.FileReader;
 import cs3500.music.controller.MusicControllerImpl;
 import cs3500.music.model.IMusicModel;
 import cs3500.music.model.Note;
-import cs3500.music.model.Piece;
 import cs3500.music.util.CompositionBuilder;
 import cs3500.music.util.CompositionBuilderImpl;
 import cs3500.music.util.MusicReader;
