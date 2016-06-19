@@ -87,6 +87,17 @@ public class ConsoleViewTest {
                             "6  |    |         |  \n", build.toString());
   }
 
+
+  @Test
+  public void testEmptyView() {
+    Appendable build = new StringBuilder();
+    IMusicModel<Note> piece = new Piece();
+    MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
+    IView console = new ConsoleView(build, controller);
+    console.view();
+    assertEquals("", build.toString());
+  }
+
 /*
   @Test
   public void testShowPieceNormal() {
