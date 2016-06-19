@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 import cs3500.music.controller.MusicControllerImpl;
 import cs3500.music.model.IMusicModel;
-import cs3500.music.controller.MusicController;
 import cs3500.music.model.Note;
 import cs3500.music.model.Piece;
 import cs3500.music.view.ConsoleView;
@@ -85,6 +84,32 @@ public class ConsoleViewTest {
                             "4  |    |         |  \n" +
                             "5  |    |         |  \n" +
                             "6  |    |         |  \n", build.toString());
+  }
+
+  @Test
+  public void testViewChordLonger() throws Exception {
+    Appendable build = new StringBuilder();
+    IMusicModel<Note> piece = new Piece();
+    piece.addAll(new ArrayList<Note>(
+            Arrays.asList(new Note(Note.Pitch.D_SHARP, Note.Octave.Five, 4, 7),
+                    new Note(Note.Pitch.C_SHARP, Note.Octave.Five, 4, 7),
+                    new Note(Note.Pitch.C, Note.Octave.Five, 4, 7))));
+    MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
+    IView console = new ConsoleView(build, controller);
+    console.view();
+    assertEquals(
+            "    C5  C#5   D5  D#5 \n" +
+                    " 0                    \n" +
+                    " 1                    \n" +
+                    " 2                    \n" +
+                    " 3                    \n" +
+                    " 4                    \n" +
+                    " 5                    \n" +
+                    " 6                    \n" +
+                    " 7  X    X         X  \n" +
+                    " 8  |    |         |  \n" +
+                    " 9  |    |         |  \n" +
+                    "10  |    |         |  \n", build.toString());
   }
 
 

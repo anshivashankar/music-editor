@@ -34,7 +34,9 @@ public class MidiView implements IView {
     } catch (MidiUnavailableException e) {
       e.printStackTrace();
     }
+
     Instrument[] inst = synth.getAvailableInstruments();
+    System.out.println(inst.length);
     for(Instrument i : inst) {
       synth.loadInstrument(i);
     }
