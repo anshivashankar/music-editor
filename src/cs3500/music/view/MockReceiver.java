@@ -25,7 +25,8 @@ public class MockReceiver implements Receiver {
 
   @Override
   public void send(MidiMessage message, long timeStamp) {
-    string.append(Arrays.toString(message.getMessage())).append(" ").append(timeStamp).append("\n");
+    string.append(Arrays.toString(message.getMessage())).append(" ")
+            .append(timeStamp).append("\n");
   }
 
   @Override
