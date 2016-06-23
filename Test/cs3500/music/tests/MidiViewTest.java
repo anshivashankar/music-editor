@@ -26,16 +26,19 @@ public class MidiViewTest {
     MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
     MidiView view = new MidiView(controller, build);
     view.view();
-    assertEquals(build.toString(), "got receiver\n" +
-            "midi opened\n" +
+    assertEquals(build.toString(), "midi opened\n" +
+            "set Sequence\n" +
+            "midi started\n" +
+            "accessed track\n" +
             "[-112, 110, 60] 0\n" +
-            "[-128, 110, 60] 25\n" +
             "[-112, 110, 60] 0\n" +
-            "[-128, 110, 60] 25\n" +
             "[-112, 108, 60] 0\n" +
+            "[-128, 110, 60] 25\n" +
+            "[-128, 110, 60] 25\n" +
             "[-128, 108, 60] 25\n" +
-            "midi closed\n" +
-            "receiver closing");
+            "[-1, 47, 0] 25\n" +
+            "midi stopped\n" +
+            "midi closed");
 
     // test with no notes
     piece = new Piece();
@@ -45,10 +48,13 @@ public class MidiViewTest {
     controller = new MusicControllerImpl<Note>(piece);
     view = new MidiView(controller, build);
     view.view();
-    assertEquals(build.toString(), "got receiver\n" +
-            "midi opened\n" +
-            "midi closed\n" +
-            "receiver closing");
+    assertEquals(build.toString(), "midi opened\n" +
+            "set Sequence\n" +
+            "midi started\n" +
+            "accessed track\n" +
+            "[-1, 47, 0] 0\n" +
+            "midi stopped\n" +
+            "midi closed");
 
     // test with a singular note
     piece = new Piece();
@@ -59,12 +65,15 @@ public class MidiViewTest {
     controller = new MusicControllerImpl<Note>(piece);
     view = new MidiView(controller, build);
     view.view();
-    assertEquals(build.toString(), "got receiver\n" +
-            "midi opened\n" +
+    assertEquals(build.toString(), "midi opened\n" +
+            "set Sequence\n" +
+            "midi started\n" +
+            "accessed track\n" +
             "[-111, 60, 60] 25\n" +
             "[-127, 60, 60] 50\n" +
-            "midi closed\n" +
-            "receiver closing");
+            "[-1, 47, 0] 50\n" +
+            "midi stopped\n" +
+            "midi closed");
 
     // test with a chord of notes
     piece = new Piece();
@@ -77,16 +86,19 @@ public class MidiViewTest {
     controller = new MusicControllerImpl<Note>(piece);
     view = new MidiView(controller, build);
     view.view();
-    assertEquals(build.toString(), "got receiver\n" +
-            "midi opened\n" +
+    assertEquals(build.toString(), "midi opened\n" +
+            "set Sequence\n" +
+            "midi started\n" +
+            "accessed track\n" +
             "[-111, 60, 60] 25\n" +
-            "[-127, 60, 60] 50\n" +
             "[-111, 65, 60] 25\n" +
-            "[-127, 65, 60] 50\n" +
             "[-111, 69, 60] 25\n" +
+            "[-127, 60, 60] 50\n" +
+            "[-127, 65, 60] 50\n" +
             "[-127, 69, 60] 50\n" +
-            "midi closed\n" +
-            "receiver closing");
+            "[-1, 47, 0] 50\n" +
+            "midi stopped\n" +
+            "midi closed");
 
 
     // test with consecutive notes, and different kinds of note constructors
@@ -106,23 +118,26 @@ public class MidiViewTest {
     controller = new MusicControllerImpl<Note>(piece);
     view = new MidiView(controller, build);
     view.view();
-    assertEquals(build.toString(), "got receiver\n" +
-            "midi opened\n" +
+    assertEquals(build.toString(), "midi opened\n" +
+            "set Sequence\n" +
+            "midi started\n" +
+            "accessed track\n" +
             "[-111, 60, 60] 25\n" +
-            "[-127, 60, 60] 50\n" +
             "[-111, 65, 60] 25\n" +
-            "[-127, 65, 60] 50\n" +
             "[-111, 69, 60] 25\n" +
+            "[-127, 60, 60] 50\n" +
+            "[-127, 65, 60] 50\n" +
             "[-127, 69, 60] 50\n" +
             "[-112, 109, 20] 50\n" +
             "[-128, 109, 20] 100\n" +
             "[-111, 60, 60] 100\n" +
-            "[-127, 60, 60] 150\n" +
             "[-111, 65, 60] 100\n" +
-            "[-127, 65, 60] 150\n" +
             "[-111, 69, 60] 100\n" +
+            "[-127, 60, 60] 150\n" +
+            "[-127, 65, 60] 150\n" +
             "[-127, 69, 60] 150\n" +
-            "midi closed\n" +
-            "receiver closing");
+            "[-1, 47, 0] 150\n" +
+            "midi stopped\n" +
+            "midi closed");
   }
 }

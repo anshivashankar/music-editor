@@ -2,6 +2,8 @@ package cs3500.music.controller;
 
 import java.util.List;
 
+import cs3500.music.view.IView;
+
 /**
  * A Controller for an IMusicModel.  Parametrized over the type of Note
  */
@@ -36,4 +38,32 @@ public interface MusicController<K> {
    * @return the tempo from the given IMusicModel
    */
   int getTempo();
+
+  /**
+   * Adds the given K to the piece
+   * @param k of type K
+   */
+  void add(K k);
+
+  /**
+   * Removes the given K from the piece
+   * @param k of type K
+   */
+  void remove(K k);
+
+  /**
+   * Plays the currently paused music, if it is not already playing
+   */
+  void play();
+
+  /**
+   * Pauses the currently playing music, if it is not already paused
+   */
+  void pause();
+
+  /**
+   * Sets the view of this Controller to the given view.
+   * @param view
+   */
+  void setView(IView view);
 }

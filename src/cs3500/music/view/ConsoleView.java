@@ -17,6 +17,7 @@ public class ConsoleView implements IView {
   public ConsoleView(Appendable app, MusicController<Note> piece) {
     this.app = app;
     controller = piece;
+    piece.setView(this);
   }
 
   /**
@@ -95,6 +96,16 @@ public class ConsoleView implements IView {
       e.printStackTrace();
     }
 
+  }
+
+  @Override
+  public void play() {
+    return;
+  }
+
+  @Override
+  public void pause() {
+    return;
   }
 
 

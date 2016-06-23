@@ -3,12 +3,14 @@ package cs3500.music.view;
 import java.util.List;
 
 import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Receiver;
+import javax.sound.midi.Sequence;
+import javax.sound.midi.Sequencer;
 import javax.sound.midi.ShortMessage;
-import javax.sound.midi.Synthesizer;
+import javax.sound.midi.Track;
 
 import cs3500.music.controller.MusicController;
 import cs3500.music.model.Note;
@@ -18,8 +20,8 @@ import cs3500.music.model.Note;
  */
 public class MidiView implements IView {
   private final MusicController<Note> controller;
-  private final Synthesizer synth;
-  private final Receiver receiver;
+  private final Sequencer seq;
+  private final Sequence sequence;
 
   /**
    * Constructor of a MidiView.
@@ -27,23 +29,29 @@ public class MidiView implements IView {
    * @param piece of type MusicControllerImpl, given the piece that we would like to test.
    */
   public MidiView(MusicController<Note> piece) {
-    Synthesizer synth2 = null;
-    Receiver rec = null;
+    Sequencer seq2 = null;
+    Sequence sequence2 = null;
     controller = piece;
     try {
-      synth2 = MidiSystem.getSynthesizer();
-      rec = synth2.getReceiver();
+      seq2 = MidiSystem.getSequencer();
     } catch (MidiUnavailableException e) {
       e.printStackTrace();
     }
-    receiver = rec;
-    synth = synth2;
+    seq = seq2;
+    try {
+      sequence2 = new Sequence(Sequence.PPQ, 1000000 / 2);
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
+    sequence = sequence2;
 
     try {
-      synth.open();
+      seq.open();
     } catch (MidiUnavailableException e) {
       e.printStackTrace();
     }
+
+    piece.setView(this);
   }
 
   /**
@@ -54,26 +62,35 @@ public class MidiView implements IView {
    *               and stop().
    */
   public MidiView(MusicController<Note> piece, StringBuilder string) {
-    Synthesizer synth2 = null;
-    Receiver rec = null;
     controller = piece;
+    seq = new MockSequencer(string);
+    Sequence sequence2 = null;
     try {
-      synth2 = new MockSynth(string);
-      rec = synth2.getReceiver();
-    } catch (MidiUnavailableException e) {
+      sequence2 = new MockSequence(Sequence.PPQ, 1000000 / 2, string);
+    } catch (InvalidMidiDataException e) {
       e.printStackTrace();
     }
-    receiver = rec;
-    synth = synth2;
-
+    sequence = sequence2;
     try {
-      synth.open();
+      seq.open();
     } catch (MidiUnavailableException e) {
       e.printStackTrace();
     }
   }
 
   public void view() {
+
+
+    Track track = sequence.createTrack();
+
+
+    try {
+      seq.setSequence(sequence);
+    } catch (InvalidMidiDataException e) {
+      e.printStackTrace();
+    }
+
+
     List<Note> notes = controller.getAllNotes();
     for (Note note : notes) {
       try {
@@ -81,20 +98,38 @@ public class MidiView implements IView {
                 note.notePlace(), note.getVolume());
         MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, note.getInstrument(),
                 note.notePlace(), note.getVolume());
-        this.receiver.send(start, note.getStartBeat() * controller.getTempo());
-        this.receiver.send(stop, (note.getStartBeat() + note.getDuration())
-                * controller.getTempo());
+
+
+        // sequencer
+        track.add(new MidiEvent(start, note.getStartBeat() * controller.getTempo()));
+        track.add(new MidiEvent(stop, (note.getStartBeat() + note.getDuration())
+                * controller.getTempo()));
+
       } catch (InvalidMidiDataException e) {
         e.printStackTrace();
       }
     }
+
+    seq.start();
+
     try {
       // divide my 1000 because of the microsecond to millisecond conversion
       Thread.sleep((long) controller.lastBeat() * (long) controller.getTempo() / 1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    synth.close();
-    this.receiver.close();
+    seq.stop();
+    seq.close();
+
+  }
+
+  @Override
+  public void play() {
+    seq.start();
+  }
+
+  @Override
+  public void pause() {
+    seq.stop();
   }
 }

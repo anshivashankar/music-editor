@@ -23,11 +23,22 @@ public class GuiViewFrame extends JFrame implements IView {
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.getContentPane().add(new JScrollPane(displayPanel));
     this.pack();
+    piece.setView(this);
   }
 
   @Override
   public void view() {
     this.setVisible(true);
+  }
+
+  @Override
+  public void play() {
+    return;
+  }
+
+  @Override
+  public void pause() {
+    return;
   }
 
   @Override
