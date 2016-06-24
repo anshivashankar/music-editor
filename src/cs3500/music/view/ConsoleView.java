@@ -10,7 +10,7 @@ import cs3500.music.model.Note;
 /**
  * Console view of an IMusicModel, displays it through console, using System.out.
  */
-public class ConsoleView implements IView {
+public class ConsoleView implements View {
   private MusicController<Note> controller;
   private Appendable app;
 

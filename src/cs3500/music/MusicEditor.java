@@ -11,7 +11,7 @@ import cs3500.music.util.CompositionBuilderImpl;
 import cs3500.music.util.MusicReader;
 import cs3500.music.view.ConsoleView;
 import cs3500.music.view.GuiViewFrame;
-import cs3500.music.view.IView;
+import cs3500.music.view.View;
 import cs3500.music.view.MidiView;
 
 /**
@@ -24,7 +24,7 @@ public class MusicEditor {
     String fileName = args[0];
     String modelType = args[1];
     CompositionBuilder<IMusicModel<Note>> comp = new CompositionBuilderImpl();
-    IView view;
+    View view;
     if (modelType.equals("console")) {
       try {
         view = new ConsoleView(System.out, new MusicControllerImpl<Note>(

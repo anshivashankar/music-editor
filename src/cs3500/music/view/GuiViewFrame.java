@@ -1,6 +1,8 @@
 package cs3500.music.view;
 
 import java.awt.*;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
@@ -10,7 +12,7 @@ import cs3500.music.model.Note;
 /**
  * A Frame that houses the visual component of a song
  */
-public class GuiViewFrame extends JFrame implements IView {
+public class GuiViewFrame extends JFrame implements GuiView {
 
   private final JPanel displayPanel; // You may want to refine this to a subtype of JPanel
 

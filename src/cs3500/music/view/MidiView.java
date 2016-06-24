@@ -18,7 +18,7 @@ import cs3500.music.model.Note;
 /**
  * MIDI view of an IMusicModel. Displays it visually, through JFrame.
  */
-public class MidiView implements IView {
+public class MidiView implements View {
   private final MusicController<Note> controller;
   private final Sequencer seq;
   private final Sequence sequence;

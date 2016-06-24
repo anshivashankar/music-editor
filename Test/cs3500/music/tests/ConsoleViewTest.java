@@ -10,7 +10,7 @@ import cs3500.music.model.IMusicModel;
 import cs3500.music.model.Note;
 import cs3500.music.model.Piece;
 import cs3500.music.view.ConsoleView;
-import cs3500.music.view.IView;
+import cs3500.music.view.View;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,7 +27,7 @@ public class ConsoleViewTest {
                     new Note(Note.Pitch.D, Note.Octave.Five, 2, 0),
                     new Note(Note.Pitch.A, Note.Octave.Five, 2, 0))));
     MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
-    IView console = new ConsoleView(build, controller);
+    View console = new ConsoleView(build, controller);
     console.view();
     assertEquals(
             "   D5  D#5   E5   F5  F#5   G5  G#5   A5 \n" +
@@ -50,7 +50,7 @@ public class ConsoleViewTest {
                     new Note(Note.Pitch.A, Note.Octave.Five, 2, 0),
                     new Note(Note.Pitch.D_SHARP, Note.Octave.Five, 2, 5))));
     MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
-    IView console = new ConsoleView(build, controller);
+    View console = new ConsoleView(build, controller);
     console.view();
     assertEquals(
             "   D5  D#5   E5   F5  F#5   G5  G#5   A5 \n" +
@@ -72,7 +72,7 @@ public class ConsoleViewTest {
                     new Note(Note.Pitch.C_SHARP, Note.Octave.Five, 4, 3),
                     new Note(Note.Pitch.C, Note.Octave.Five, 4, 3))));
     MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
-    IView console = new ConsoleView(build, controller);
+    View console = new ConsoleView(build, controller);
     console.view();
     assertEquals(
             "   C5  C#5   D5  D#5 \n" +
@@ -94,7 +94,7 @@ public class ConsoleViewTest {
                     new Note(Note.Pitch.C_SHARP, Note.Octave.Five, 4, 7),
                     new Note(Note.Pitch.C, Note.Octave.Five, 4, 7))));
     MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
-    IView console = new ConsoleView(build, controller);
+    View console = new ConsoleView(build, controller);
     console.view();
     assertEquals(
             "    C5  C#5   D5  D#5 \n" +
@@ -120,7 +120,7 @@ public class ConsoleViewTest {
                     new Note(Note.Pitch.C_SHARP, Note.Octave.Five, 4, 7),
                     new Note(Note.Pitch.C, Note.Octave.Five, 4, 7))));
     MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
-    IView console = new ConsoleView(build, controller);
+    View console = new ConsoleView(build, controller);
     console.view();
     assertEquals(
             "   D#4   E4   F4  F#4   G4  G#4   A4  A#4   B4   C5  C#5 \n" +
@@ -143,7 +143,7 @@ public class ConsoleViewTest {
     Appendable build = new StringBuilder();
     IMusicModel<Note> piece = new Piece();
     MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
-    IView console = new ConsoleView(build, controller);
+    View console = new ConsoleView(build, controller);
     console.view();
     assertEquals("", build.toString());
   }

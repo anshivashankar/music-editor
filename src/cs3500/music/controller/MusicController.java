@@ -2,7 +2,7 @@ package cs3500.music.controller;
 
 import java.util.List;
 
-import cs3500.music.view.IView;
+import cs3500.music.view.View;
 
 /**
  * A Controller for an IMusicModel.  Parametrized over the type of Note
@@ -65,5 +65,5 @@ public interface MusicController<K> {
    * Sets the view of this Controller to the given view.
    * @param view
    */
-  void setView(IView view);
+  void setView(View view);
 }
