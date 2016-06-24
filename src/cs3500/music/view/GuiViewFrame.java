@@ -6,13 +6,14 @@ import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
+import cs3500.music.controller.KeyboardHandler;
 import cs3500.music.controller.MusicController;
 import cs3500.music.model.Note;
 
 /**
  * A Frame that houses the visual component of a song
  */
-public class GuiViewFrame extends JFrame implements GuiView {
+public class GuiViewFrame extends JFrame implements GuiView<Note> {
 
   private final JPanel displayPanel; // You may want to refine this to a subtype of JPanel
 
@@ -25,7 +26,6 @@ public class GuiViewFrame extends JFrame implements GuiView {
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.getContentPane().add(new JScrollPane(displayPanel));
     this.pack();
-    piece.setView(this);
   }
 
   @Override
@@ -33,9 +33,10 @@ public class GuiViewFrame extends JFrame implements GuiView {
     this.setVisible(true);
   }
 
+  // TODO: rest of these need to be implemented
   @Override
-  public void play() {
-    return;
+  public void togglePausePlay() {
+
   }
 
   @Override
@@ -44,12 +45,27 @@ public class GuiViewFrame extends JFrame implements GuiView {
   }
 
   @Override
-  public void pause() {
-    return;
+  public void moveToBeginning() {
+
+  }
+
+  @Override
+  public void moveToEnd() {
+
   }
 
   @Override
   public Dimension getPreferredSize() {
     return displayPanel.getPreferredSize();
+  }
+
+  @Override
+  public Note getEditNote() throws IllegalArgumentException {
+    return null;
+  }
+
+  @Override
+  public void openEditWindow(KeyListener kl) throws IllegalArgumentException {
+
   }
 }

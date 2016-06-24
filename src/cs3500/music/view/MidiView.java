@@ -18,7 +18,7 @@ import cs3500.music.model.Note;
 /**
  * MIDI view of an IMusicModel. Displays it visually, through JFrame.
  */
-public class MidiView implements View {
+public class MidiView implements View<Note> {
   private final MusicController<Note> controller;
   private final Sequencer seq;
   private final Sequence sequence;
@@ -50,8 +50,6 @@ public class MidiView implements View {
     } catch (MidiUnavailableException e) {
       e.printStackTrace();
     }
-
-    piece.setView(this);
   }
 
   /**
@@ -125,8 +123,12 @@ public class MidiView implements View {
   }
 
   @Override
-  public void play() {
-    seq.start();
+  public void togglePausePlay() {
+    if (seq.isRunning()) {
+      seq.stop();
+    } else {
+      seq.start();
+    }
   }
 
   @Override
@@ -136,8 +138,16 @@ public class MidiView implements View {
     seq.start();
   }
 
+
+  // TODO: these need to actually be implemented
+
   @Override
-  public void pause() {
-    seq.stop();
+  public void moveToBeginning() {
+
+  }
+
+  @Override
+  public void moveToEnd() {
+
   }
 }

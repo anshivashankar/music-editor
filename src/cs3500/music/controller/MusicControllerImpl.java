@@ -2,6 +2,8 @@ package cs3500.music.controller;
 
 import java.util.List;
 
+import javax.swing.plaf.basic.BasicComboBoxUI;
+
 import cs3500.music.model.IMusicModel;
 import cs3500.music.view.View;
 
@@ -9,8 +11,10 @@ import cs3500.music.view.View;
  * The Model Controller, only allows the View(s) to have read-only access.
  */
 public class MusicControllerImpl<K> implements MusicController<K> {
+  // these fields should all be final at the end
+  // the setView is not required
   private IMusicModel<K> piece;
-  private View view;
+
 
   /**
    * The MusicControllerImpl constructor, specifies that the IMusicModel being played is of type
@@ -18,7 +22,6 @@ public class MusicControllerImpl<K> implements MusicController<K> {
    */
   public MusicControllerImpl(IMusicModel<K> piece) {
     this.piece = piece;
-    view = null;
   }
 
   @Override
@@ -56,21 +59,5 @@ public class MusicControllerImpl<K> implements MusicController<K> {
       System.err.println("Note to be removed not in Model");
     }
   }
-
-  @Override
-  public void play() {
-    view.play();
-  }
-
-  @Override
-  public void pause() {
-    view.pause();
-  }
-
-  @Override
-  public void setView(View view) {
-    this.view = view;
-  }
-
 
 }

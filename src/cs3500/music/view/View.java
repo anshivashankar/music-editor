@@ -4,7 +4,7 @@ package cs3500.music.view;
  * The View class, the interface that represents a View, such as the ConsoleView, MidiView, and
  * GUIView.
  */
-public interface View {
+public interface View<K> {
 
   /**
    * Call this method  when you would like to view the kind of View specified.
@@ -12,9 +12,9 @@ public interface View {
   void view();
 
   /**
-   * Call this method when you would like to play the View
+   * Call this method when you would like to switch between playing and pausing the music
    */
-  void play();
+  void togglePausePlay();
 
   /**
    * Plays the song starting from a specific time stamp.
@@ -23,9 +23,12 @@ public interface View {
   void playAtTime(long sec);
 
   /**
-   * Call this method when you would like to pause the View
+   * makes the current view move back to the beginning of the piece
    */
-  void pause();
+  void moveToBeginning();
 
-
+  /**
+   * makes the current view move back to the end of the piece
+   */
+  void moveToEnd();
 }

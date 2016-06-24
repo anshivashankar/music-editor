@@ -6,14 +6,7 @@ import java.awt.event.MouseListener;
 /**
  * Interface for the combined GUI editor
  */
-public interface GuiView extends View {
-
-  /**
-   * adds a mouse listener to the GUI
-   *
-   * @param ml the mouse listener to be added
-   */
-  void addMouseListener(MouseListener ml);
+public interface GuiView<K> extends View<K> {
 
   /**
    * adds a keyboard listener to the GUI
@@ -21,4 +14,20 @@ public interface GuiView extends View {
    * @param kl the keyboard listener to be added
    */
   void addKeyListener(KeyListener kl);
+
+  /**
+   * gets the note the user inputted into the EditorFrame and closes the Editor Frame
+   *
+   * @return the note that needs to be edited
+   * @throws IllegalArgumentException when the input into the Editor Window is incorrect
+   */
+  K getEditNote() throws IllegalArgumentException;
+
+  /**
+   * opens a new Editor Frame with the given KeyListener
+   *
+   * @param kl the KeyListener to be given to the Editor Frame
+   * @throws IllegalArgumentException if there is already an Editor Frame open
+   */
+  void openEditWindow(KeyListener kl) throws IllegalArgumentException;
 }

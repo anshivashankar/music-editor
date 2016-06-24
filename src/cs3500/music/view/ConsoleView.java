@@ -10,14 +10,13 @@ import cs3500.music.model.Note;
 /**
  * Console view of an IMusicModel, displays it through console, using System.out.
  */
-public class ConsoleView implements View {
+public class ConsoleView implements View<Note> {
   private MusicController<Note> controller;
   private Appendable app;
 
   public ConsoleView(Appendable app, MusicController<Note> piece) {
     this.app = app;
     controller = piece;
-    piece.setView(this);
   }
 
   /**
@@ -99,7 +98,7 @@ public class ConsoleView implements View {
   }
 
   @Override
-  public void play() {
+  public void togglePausePlay() {
     return;
   }
 
@@ -109,9 +108,10 @@ public class ConsoleView implements View {
   }
 
   @Override
-  public void pause() {
-    return;
-  }
+  public void moveToBeginning() {}
+
+  @Override
+  public void moveToEnd() {}
 
 
   /**

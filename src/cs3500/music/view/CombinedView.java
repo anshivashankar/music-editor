@@ -6,7 +6,7 @@ import cs3500.music.model.Piece;
 /**
  * A CombinedView to combine both the MidiView and GuiViewFrame.
  */
-public class CombinedView implements View {
+public class CombinedView implements GuiView<Note> {
 
   long time;
   GuiViewFrame guiView;

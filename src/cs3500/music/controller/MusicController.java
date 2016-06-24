@@ -50,20 +50,4 @@ public interface MusicController<K> {
    * @param k of type K
    */
   void remove(K k);
-
-  /**
-   * Plays the currently paused music, if it is not already playing
-   */
-  void play();
-
-  /**
-   * Pauses the currently playing music, if it is not already paused
-   */
-  void pause();
-
-  /**
-   * Sets the view of this Controller to the given view.
-   * @param view
-   */
-  void setView(View view);
 }

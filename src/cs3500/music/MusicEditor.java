@@ -23,6 +23,8 @@ public class MusicEditor {
   // main method to execute the program
 
   public static void main(String[] args) {
+    // TODO: instead of just haing a view, have a controller that contains a view
+    /*
     String fileName = args[0];
     String modelType = args[1];
     CompositionBuilder<IMusicModel<Note>> comp = new CompositionBuilderImpl();
@@ -72,7 +74,7 @@ public class MusicEditor {
 
 
 
-    }
+    }*/
 
   }
 }

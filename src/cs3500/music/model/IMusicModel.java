@@ -25,6 +25,7 @@ public interface IMusicModel<K> {
    * removes a note from the piece
    *
    * @param k the note to be removed
+   * @throws IllegalArgumentException if the given note is Note is not in the Music Model
    */
   void remove(K k);
 
@@ -34,7 +35,6 @@ public interface IMusicModel<K> {
    *
    * @param other the other piece of music
    * @return a piece of music that represents the two pieces of music combined simultaneously
-   * @throws IllegalArgumentException if the given note is Note in the Music Model
    */
   IMusicModel<K> combineSimultaneously(IMusicModel<K> other);
 

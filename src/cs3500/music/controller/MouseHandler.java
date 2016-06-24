@@ -3,6 +3,8 @@ package cs3500.music.controller;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+// TODO: remove this if we never end up using it which is likely
+
 /**
  * Handles Mouse Events
  */
