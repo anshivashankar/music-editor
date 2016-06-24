@@ -110,6 +110,7 @@ public class MidiView implements View {
       }
     }
 
+    /*
     seq.start();
 
     try {
@@ -117,14 +118,21 @@ public class MidiView implements View {
       Thread.sleep((long) controller.lastBeat() * (long) controller.getTempo() / 1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
-    }
-    seq.stop();
-    seq.close();
+    }*/
+    //seq.stop();
+    //seq.close();
 
   }
 
   @Override
   public void play() {
+    seq.start();
+  }
+
+  @Override
+  public void playAtTime(long sec) {
+    seq.stop();
+    seq.setMicrosecondPosition(sec);
     seq.start();
   }
 

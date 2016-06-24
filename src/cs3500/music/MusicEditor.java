@@ -6,9 +6,11 @@ import java.io.FileReader;
 import cs3500.music.controller.MusicControllerImpl;
 import cs3500.music.model.IMusicModel;
 import cs3500.music.model.Note;
+import cs3500.music.model.Piece;
 import cs3500.music.util.CompositionBuilder;
 import cs3500.music.util.CompositionBuilderImpl;
 import cs3500.music.util.MusicReader;
+import cs3500.music.view.CombinedView;
 import cs3500.music.view.ConsoleView;
 import cs3500.music.view.GuiViewFrame;
 import cs3500.music.view.View;
@@ -51,5 +53,26 @@ public class MusicEditor {
         System.out.println("File not found");
       }
     }
+
+    else if(modelType.equals("combined")) {
+      try {
+
+        MusicControllerImpl<Note> controller =
+                new MusicControllerImpl<Note>(MusicReader.parseFile(
+                        new FileReader(fileName), comp));
+
+        GuiViewFrame guiView = new GuiViewFrame(controller);
+        MidiView midiView = new MidiView(controller);
+        view = new CombinedView(guiView, midiView);
+        view.view();
+        view.playAtTime(0);
+      } catch(FileNotFoundException e) {
+        System.out.println("File not found");
+      }
+
+
+
+    }
+
   }
 }

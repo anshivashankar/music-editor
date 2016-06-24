@@ -104,6 +104,11 @@ public class ConsoleView implements View {
   }
 
   @Override
+  public void playAtTime(long sec) {
+    return;
+  }
+
+  @Override
   public void pause() {
     return;
   }

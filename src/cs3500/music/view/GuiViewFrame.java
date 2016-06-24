@@ -39,6 +39,11 @@ public class GuiViewFrame extends JFrame implements GuiView {
   }
 
   @Override
+  public void playAtTime(long sec) {
+    // Make sure to place the red 'line' at this point, it is given in microseconds.
+  }
+
+  @Override
   public void pause() {
     return;
   }

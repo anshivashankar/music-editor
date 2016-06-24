@@ -17,7 +17,15 @@ public interface View {
   void play();
 
   /**
+   * Plays the song starting from a specific time stamp.
+   * @param sec of type long, in microseconds.
+   */
+  void playAtTime(long sec);
+
+  /**
    * Call this method when you would like to pause the View
    */
   void pause();
+
+
 }
