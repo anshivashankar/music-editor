@@ -30,6 +30,7 @@ public class MockSequencer implements Sequencer {
 
   private final StringBuilder string;
   private Sequence seq;
+  private long time;
 
   /**
    * Constructor for building a MockSequencer.
@@ -191,7 +192,7 @@ public class MockSequencer implements Sequencer {
 
   @Override
   public long getMicrosecondPosition() {
-    return 0;
+    return time;
   }
 
   @Override
@@ -206,7 +207,7 @@ public class MockSequencer implements Sequencer {
 
   @Override
   public void setMicrosecondPosition(long microseconds) {
-
+    this.time = microseconds;
   }
 
   @Override

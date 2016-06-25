@@ -109,4 +109,10 @@ public class CombinedView implements GuiView<Note> {
     this.midiView.update();
   }
 
+  @Override
+  public void updateTime(long time2) {
+    this.time = midiView.getTime();
+    guiView.updateTime(this.time/1000);
+  }
+
 }

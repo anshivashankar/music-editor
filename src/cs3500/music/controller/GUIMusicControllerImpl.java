@@ -20,6 +20,14 @@ public class GUIMusicControllerImpl<K> implements MusicController<K> {
     this.view.addKeyListener(this.getNormalFrameKeyHandler());
     this.view.addEditWindowKeyListener(this.getEditFrameKeyHandler());
     this.view.view();
+    new Thread( new Runnable() {
+      @Override
+      public void run() {
+        while(true) {
+          view.updateTime(2);
+        }
+      }
+    }).start();
   }
 
   private KeyListener getEditFrameKeyHandler() {
@@ -138,7 +146,6 @@ public class GUIMusicControllerImpl<K> implements MusicController<K> {
   @Override
   public void view() {
     view.view();
-
   }
 
 }

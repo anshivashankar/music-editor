@@ -70,8 +70,8 @@ public class MusicEditor {
         GuiViewFrame guiView = new GuiViewFrame(roModel);
         MidiView midiView = new MidiView(roModel);
         GuiView<Note> view = new CombinedView(guiView, midiView);
-        MusicController<Note> controller = new GUIMusicControllerImpl<Note>(model, view);
-        view.playAtTime(0);
+        GUIMusicControllerImpl<Note> controller = new GUIMusicControllerImpl<Note>(model, view);
+        controller.view();
       } catch(FileNotFoundException e) {
         System.out.println("File not found");
       }

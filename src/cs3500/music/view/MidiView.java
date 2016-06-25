@@ -127,6 +127,7 @@ public class MidiView implements View<Note> {
 
   }
 
+
   @Override
   public void togglePausePlay() {
     if (seq.isRunning()) {

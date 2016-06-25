@@ -22,6 +22,8 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
 
   private final EditorFrame editWindow;
 
+  private long time;
+
   /**
    * Creates new GuiView
    */
@@ -37,6 +39,7 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
     this.pack();
 
     this.editWindow = new EditorFrame();
+    this.time = 0;
   }
 
   @Override
@@ -122,6 +125,11 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
   public void scrollDown() {
     JScrollBar vertical = this.scrollPane.getVerticalScrollBar();
     vertical.setValue(vertical.getValue() + 10);
+  }
+
+  @Override
+  public void updateTime(long time) {
+    this.time = time;
   }
 
   @Override

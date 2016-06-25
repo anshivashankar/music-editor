@@ -15,6 +15,95 @@ import static org.junit.Assert.assertEquals;
  * The test for MidiView to see if it is working properly.
  */
 public class MidiViewTest {
+  @Test
+  public void togglePausePlay() {
+    IMusicModel<Note> piece = new Piece();
+    StringBuilder build = new StringBuilder();
+    piece.add(new Note(Note.Pitch.D, Note.Octave.Eight, 5, 0, 60, 0));
+    piece.add(new Note(Note.Pitch.D, Note.Octave.Eight, 5, 0, 60, 0));
+    piece.add(new Note(Note.Pitch.C, Note.Octave.Eight, 5, 0, 60, 0));
+    ReadOnlyModelImpl<Note> controller = new ReadOnlyModelImpl<Note>(piece);
+    MidiView view = new MidiView(controller, build);
+    view.view();
+    view.togglePausePlay();
+    assertEquals(build.toString(), "midi opened\n" +
+            "set Sequence\n" +
+            "midi started\n" +
+            "accessed track\n" +
+            "[-112, 110, 60] 0\n" +
+            "[-112, 110, 60] 0\n" +
+            "[-112, 108, 60] 0\n" +
+            "[-128, 110, 60] 25\n" +
+            "[-128, 110, 60] 25\n" +
+            "[-128, 108, 60] 25\n" +
+            "[-1, 47, 0] 25\n");
+  }
+
+  @Test
+  public void playAtTime() {
+    IMusicModel<Note> piece = new Piece();
+    StringBuilder build = new StringBuilder();
+    piece.add(new Note(Note.Pitch.D, Note.Octave.Eight, 5, 0, 60, 0));
+    piece.add(new Note(Note.Pitch.D, Note.Octave.Eight, 5, 0, 60, 0));
+    piece.add(new Note(Note.Pitch.C, Note.Octave.Eight, 5, 0, 60, 0));
+    ReadOnlyModelImpl<Note> controller = new ReadOnlyModelImpl<Note>(piece);
+    MidiView view = new MidiView(controller, build);
+    view.view();
+    view.togglePausePlay();
+    assertEquals(build.toString(), "midi opened\n" +
+            "set Sequence\n" +
+            "midi started\n" +
+            "accessed track\n" +
+            "[-112, 110, 60] 0\n" +
+            "[-112, 110, 60] 0\n" +
+            "[-112, 108, 60] 0\n" +
+            "[-128, 110, 60] 25\n" +
+            "[-128, 110, 60] 25\n" +
+            "[-128, 108, 60] 25\n" +
+            "[-1, 47, 0] 25\n");
+  }
+
+  @Test
+  public void moveToBeginning() {
+    IMusicModel<Note> piece = new Piece();
+    StringBuilder build = new StringBuilder();
+    piece.add(new Note(Note.Pitch.D, Note.Octave.Eight, 5, 0, 60, 0));
+    piece.add(new Note(Note.Pitch.D, Note.Octave.Eight, 5, 0, 60, 0));
+    piece.add(new Note(Note.Pitch.C, Note.Octave.Eight, 5, 0, 60, 0));
+    ReadOnlyModelImpl<Note> controller = new ReadOnlyModelImpl<Note>(piece);
+    MidiView view = new MidiView(controller, build);
+    view.view();
+    view.moveToEnd();
+    view.moveToBeginning();
+    //view.togglePausePlay();
+    assertEquals(view.getTime(), 0);
+  }
+
+  @Test
+  public void moveToEnd() {
+    IMusicModel<Note> piece = new Piece();
+    StringBuilder build = new StringBuilder();
+    piece.add(new Note(Note.Pitch.D, Note.Octave.Eight, 5, 0, 60, 0));
+    piece.add(new Note(Note.Pitch.D, Note.Octave.Eight, 5, 0, 60, 0));
+    piece.add(new Note(Note.Pitch.C, Note.Octave.Eight, 5, 0, 60, 0));
+    ReadOnlyModelImpl<Note> controller = new ReadOnlyModelImpl<Note>(piece);
+    MidiView view = new MidiView(controller, build);
+    view.view();
+    view.moveToBeginning();
+    view.moveToEnd();
+    //view.togglePausePlay();
+    assertEquals(view.getTime(), 25);
+  }
+
+  @Test
+  public void update() {
+
+  }
+
+  @Test
+  public void getTime() {
+
+  }
 
   @Test
   public void testView() {

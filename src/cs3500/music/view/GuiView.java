@@ -60,4 +60,10 @@ public interface GuiView<K> extends View<K> {
    */
   void scrollDown();
 
+  /**
+   * Updates the time in GuiView
+   * @param time of type long
+   */
+  void updateTime(long time);
+
 }
