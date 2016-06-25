@@ -127,5 +127,6 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
   @Override
   public void update() {
     this.repaint();
+    // TODO: Not required but we can make scrollbars when updating instead of letting is happen by itself
   }
 }

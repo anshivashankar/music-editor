@@ -29,7 +29,6 @@ public class GUIMusicControllerImpl<K> implements MusicController<K> {
     kh.addKeyPressedRunnable(KeyEvent.VK_ENTER, () -> {
       K note;
       try {
-        System.out.println("here");
         note = view.getEditNote();
       } catch (IllegalArgumentException e) {
         return;

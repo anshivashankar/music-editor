@@ -18,22 +18,28 @@ public class ConcreteGuiViewPanel extends JPanel {
 
   private final ReadOnlyModelImpl<Note> controller;
   private static final int boxSize = 20;
-  private final Note minNote;
-  private final int numberOfRows;
-  private final int numberOfColumns;
+  private Note minNote;
+  private int numberOfRows;
+  private int numberOfColumns;
 
   ConcreteGuiViewPanel(ReadOnlyModelImpl<Note> piece) {
     super();
     this.controller = piece;
+    this.determineSize();
+  }
+
+  private void determineSize() {
     Note maxNote = Collections.max(controller.getAllNotes());
     this.minNote = Collections.min(controller.getAllNotes());
     this.numberOfRows = maxNote.compareTo(minNote) + 1;
     // rounds up numberOfColumns to the closest divisor of 4
-    this.numberOfColumns = ((piece.lastBeat() + 3) / 4) * 4;
+    this.numberOfColumns = ((this.controller.lastBeat() + 3) / 4) * 4;
   }
 
   @Override
   public void paintComponent(Graphics g) {
+    this.determineSize();
+
     // Handle the default painting
     super.paintComponent(g);
     // Look for more documentation about the Graphics class,
@@ -86,6 +92,7 @@ public class ConcreteGuiViewPanel extends JPanel {
 
   @Override
   public Dimension getPreferredSize() {
+    this.determineSize();
     return new Dimension(boxSize * (numberOfColumns + 5), boxSize * (numberOfRows + 5));
   }
 

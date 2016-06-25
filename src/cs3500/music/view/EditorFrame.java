@@ -29,7 +29,7 @@ public class EditorFrame extends JFrame {
     this.startBeat = new JTextField(5);
     this.duration = new JTextField(5);
     this.instrument = new JTextField(2);
-    this.volume = new JTextField(2);
+    this.volume = new JTextField(3);
 
     this.add(new JLabel("Pitch: "));
     this.add(this.pitch);
