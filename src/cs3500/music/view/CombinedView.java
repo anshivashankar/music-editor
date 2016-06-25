@@ -3,7 +3,6 @@ package cs3500.music.view;
 import java.awt.event.KeyListener;
 
 import cs3500.music.model.Note;
-import cs3500.music.model.Piece;
 
 /**
  * A CombinedView to combine both the MidiView and GuiViewFrame.
@@ -21,7 +20,13 @@ public class CombinedView implements GuiView<Note> {
       @Override
       public void run() {
         while (true) {
-          guiView.updateTime(midiView.getTime()/1000);
+          try {
+            Thread.sleep(10);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+          //TODO: add an if playing so repainting only happens when playing
+          guiView.updateTime(midiView.getTime());
         }
       }
     }).start();

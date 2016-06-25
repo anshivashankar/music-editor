@@ -21,11 +21,15 @@ public class ConcreteGuiViewPanel extends JPanel {
   private Note minNote;
   private int numberOfRows;
   private int numberOfColumns;
+  private boolean resizeOnRepaint;
+  private long time;
 
   ConcreteGuiViewPanel(ReadOnlyModelImpl<Note> piece) {
     super();
     this.controller = piece;
     this.determineSize();
+    this.resizeOnRepaint = false;
+    this.time = 0;
   }
 
   private void determineSize() {
@@ -36,9 +40,19 @@ public class ConcreteGuiViewPanel extends JPanel {
     this.numberOfColumns = ((this.controller.lastBeat() + 3) / 4) * 4;
   }
 
+  protected void setResizeOnRepaint(boolean resizeOnRepaint) {
+    this.resizeOnRepaint = resizeOnRepaint;
+  }
+
+  protected void updateTime(long time) {
+    this.time = time;
+  }
+
   @Override
   public void paintComponent(Graphics g) {
-    this.determineSize();
+    if (this.resizeOnRepaint) {
+      this.determineSize();
+    }
 
     // Handle the default painting
     super.paintComponent(g);
@@ -88,11 +102,16 @@ public class ConcreteGuiViewPanel extends JPanel {
     for (int i = 0; i <= this.numberOfColumns; i += 4) {
       g.fillRect(boxSize * (i + 2), boxSize, 2, boxSize * this.numberOfRows);
     }
+
+    g.setColor(Color.red);
+    int xDist = (int) (boxSize * (2 + time / this.controller.getTempo()));
+    g.drawLine(xDist, boxSize, xDist, boxSize * (this.numberOfRows + 1));
   }
 
   @Override
   public Dimension getPreferredSize() {
     this.determineSize();
+    this.resizeOnRepaint = false;
     return new Dimension(boxSize * (numberOfColumns + 5), boxSize * (numberOfRows + 5));
   }
 

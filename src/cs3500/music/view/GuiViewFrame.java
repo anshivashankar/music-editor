@@ -16,13 +16,11 @@ import cs3500.music.model.ReadOnlyModelImpl;
  */
 public class GuiViewFrame extends JFrame implements GuiView<Note> {
 
-  private final JPanel displayPanel; // You may want to refine this to a subtype of JPanel
+  private final ConcreteGuiViewPanel displayPanel; // You may want to refine this to a subtype of JPanel
 
   private final JScrollPane scrollPane;
 
   private final EditorFrame editWindow;
-
-  private long time;
 
   /**
    * Creates new GuiView
@@ -39,7 +37,6 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
     this.pack();
 
     this.editWindow = new EditorFrame();
-    this.time = 0;
   }
 
   @Override
@@ -128,8 +125,11 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
   }
 
   //@Override
-  public void updateTime(long time) {
-    this.time = time;
+  protected void updateTime(long time) {
+    this.displayPanel.updateTime(time);
+    this.displayPanel.setResizeOnRepaint(false);
+    this.repaint();
+    this.displayPanel.setResizeOnRepaint(true);
   }
 
   @Override
