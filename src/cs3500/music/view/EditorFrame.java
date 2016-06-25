@@ -6,6 +6,8 @@ import java.awt.event.KeyListener;
 
 import javax.swing.*;
 
+import cs3500.music.model.Note;
+
 /**
  * A window for selecting a new Note
  */
@@ -33,7 +35,7 @@ public class EditorFrame extends JFrame {
     this.add(new JLabel("Duration: "));
     this.add(this.duration);
 
-    this.add(new JLabel("Press a to add a note and r to remove a note"));
+    this.add(new JLabel("Press enter to add a note and delete to remove a note"));
 
     this.pack();
   }
@@ -42,6 +44,25 @@ public class EditorFrame extends JFrame {
     this.pitch.addKeyListener(kl);
     this.startBeat.addKeyListener(kl);
     this.duration.addKeyListener(kl);
+  }
+
+  public Note getNote() {
+    Note n = null;
+    try {
+      n = new Note(Integer.parseInt(this.pitch.getText()),
+              Integer.parseInt(this.duration.getText()),
+              Integer.parseInt(this.startBeat.getText()));
+    } catch(NumberFormatException e) {
+      throw new IllegalArgumentException("Bad Edit Window Inputs");
+    }
+
+    return n;
+  }
+
+  public void clearFields() {
+    this.pitch.setText("");
+    this.startBeat.setText("");
+    this.duration.setText("");
   }
 
   // for testing, delete later

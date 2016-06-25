@@ -20,10 +20,12 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
 
   private final JScrollPane scrollPane;
 
+  private final EditorFrame editWindow;
+
   /**
    * Creates new GuiView
    */
-  public GuiViewFrame(ReadOnlyModelImpl<Note> piece) {
+  public GuiViewFrame(ReadOnlyModelImpl<Note> piece, KeyListener editWindowListener) {
     this.setLayout(new BorderLayout());
 
     this.displayPanel = new ConcreteGuiViewPanel(piece);
@@ -33,6 +35,9 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
     this.scrollPane = new JScrollPane(displayPanel);
     this.getContentPane().add(scrollPane);
     this.pack();
+
+    this.editWindow = new EditorFrame();
+    this.editWindow.addKeyListenerToFields(editWindowListener);
   }
 
   @Override
@@ -62,7 +67,7 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
   @Override
   public void moveToEnd() {
     JScrollBar horizontal = this.scrollPane.getHorizontalScrollBar();
-    horizontal.setValue(displayPanel.getWidth());
+    horizontal.setValue(horizontal.getMaximum());
   }
 
   @Override
@@ -72,15 +77,21 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
 
   @Override
   public Note getEditNote() throws IllegalArgumentException {
-    return null;
+    return this.editWindow.getNote();
   }
 
   @Override
   public void openEditWindow(KeyListener kl) throws IllegalArgumentException {
     JFrame editWindow = new EditorFrame();
-    editWindow.addKeyListener(kl);
-    //editWindow.addKeyListenerToFields(kl);
     editWindow.setVisible(true);
+    editWindow.requestFocus();
+    this.setFocusable(false);
+  }
+
+  @Override
+  public void closeEditWindow() {
+    this.editWindow.setVisible(false);
+    this.requestFocus();
   }
 
   @Override

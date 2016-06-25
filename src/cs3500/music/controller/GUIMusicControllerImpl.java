@@ -31,7 +31,9 @@ public class GUIMusicControllerImpl<K> implements MusicController<K> {
       } catch (IllegalArgumentException e) {
         return;
       }
+
       piece.add(note);
+      view.closeEditWindow();
     });
 
     kh.addKeyPressedRunnable(KeyEvent.VK_DELETE, () -> {
@@ -45,6 +47,8 @@ public class GUIMusicControllerImpl<K> implements MusicController<K> {
       try {
         piece.remove(note);
       } catch (IllegalArgumentException ignored) {}
+
+      view.closeEditWindow();
     });
 
     return kh;
@@ -55,7 +59,7 @@ public class GUIMusicControllerImpl<K> implements MusicController<K> {
     KeyboardHandler kh = new KeyboardHandler();
 
     kh.addKeyPressedRunnable(KeyEvent.VK_N, () -> {
-      view.openEditWindow(this.getEditFrameKeyHandler());
+      view.openEditWindow(getEditFrameKeyHandler());
     });
 
     kh.addKeyPressedRunnable(KeyEvent.VK_SPACE, () -> {

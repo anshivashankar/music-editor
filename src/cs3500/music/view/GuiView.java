@@ -31,6 +31,8 @@ public interface GuiView<K> extends View<K> {
    */
   void openEditWindow(KeyListener kl) throws IllegalArgumentException;
 
+  void closeEditWindow();
+
   /**
    * Scrolls the GUI Right.
    */

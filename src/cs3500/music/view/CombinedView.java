@@ -8,7 +8,7 @@ import cs3500.music.model.Piece;
 /**
  * A CombinedView to combine both the MidiView and GuiViewFrame.
  */
-public class CombinedView<K> implements GuiView<K> {
+public class CombinedView implements GuiView<Note> {
 
   long time;
   GuiViewFrame guiView;
@@ -60,13 +60,18 @@ public class CombinedView<K> implements GuiView<K> {
   }
 
   @Override
-  public K getEditNote() throws IllegalArgumentException {
-    return null;
+  public Note getEditNote() throws IllegalArgumentException {
+    return this.guiView.getEditNote();
   }
 
   @Override
   public void openEditWindow(KeyListener kl) throws IllegalArgumentException {
+    this.guiView.openEditWindow(kl);
+  }
 
+  @Override
+  public void closeEditWindow() {
+    this.guiView.closeEditWindow();
   }
 
   @Override
