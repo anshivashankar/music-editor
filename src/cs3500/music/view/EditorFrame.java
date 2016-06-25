@@ -3,6 +3,8 @@ package cs3500.music.view;
 
 import java.awt.FlowLayout;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 
@@ -22,7 +24,7 @@ public class EditorFrame extends JFrame {
   protected EditorFrame() {
 
     this.setLayout(new FlowLayout());
-    this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     this.setTitle("Add or Remove a Note");
 
     this.pitch = new JTextField(3);

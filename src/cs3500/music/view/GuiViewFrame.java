@@ -2,13 +2,9 @@ package cs3500.music.view;
 
 import java.awt.*;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
-import cs3500.music.controller.KeyboardHandler;
-import cs3500.music.controller.MusicController;
-import cs3500.music.model.IMusicModel;
 import cs3500.music.model.Note;
 import cs3500.music.model.ReadOnlyModelImpl;
 
@@ -54,7 +50,8 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
 
   // TODO: rest of these need to be implemented
   @Override
-  public void togglePausePlay() {}
+  public void togglePausePlay() {
+  }
 
   @Override
   public void playAtTime(long sec) {
@@ -138,12 +135,11 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
 
     JScrollBar horizontal = this.scrollPane.getHorizontalScrollBar();
     horizontal.setValue(((int) (boxSize * (2 + time / this.controller.getTempo()))) -
-    horizontal.getVisibleAmount() / 2);
+            horizontal.getVisibleAmount() / 2);
   }
 
   @Override
   public void update() {
     this.repaint();
-    // TODO: Not required but we can make scrollbars when updating instead of letting is happen by itself
   }
 }

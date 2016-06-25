@@ -36,7 +36,6 @@ public class GUIMusicControllerImpl<K> implements MusicController<K> {
 
       piece.add(note);
       view.update();
-      view.closeEditWindow();
     });
 
     kh.addKeyPressedRunnable(KeyEvent.VK_DELETE, () -> {
@@ -53,6 +52,9 @@ public class GUIMusicControllerImpl<K> implements MusicController<K> {
       }
 
       view.update();
+    });
+
+    kh.addKeyPressedRunnable(KeyEvent.VK_ESCAPE, () -> {
       view.closeEditWindow();
     });
 
