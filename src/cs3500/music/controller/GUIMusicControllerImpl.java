@@ -99,6 +99,10 @@ public class GUIMusicControllerImpl<K> implements MusicController<K> {
       view.scrollUp();
     });
 
+    kh.addKeyPressedRunnable(KeyEvent.VK_Q, () -> {
+      System.exit(0);
+    });
+
     return kh;
   }
 

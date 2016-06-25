@@ -59,5 +59,4 @@ public interface GuiView<K> extends View<K> {
    * Scrolls the GUI Down.
    */
   void scrollDown();
-
 }
