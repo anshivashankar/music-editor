@@ -134,8 +134,14 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
     this.displayPanel.setResizeOnRepaint(true);
 
     JScrollBar horizontal = this.scrollPane.getHorizontalScrollBar();
-    horizontal.setValue(((int) (boxSize * (2 + time / this.controller.getTempo()))) -
-            horizontal.getVisibleAmount() / 2);
+    //horizontal.setValue(((int) (boxSize * (2 + time / this.controller.getTempo()))) -
+    //        horizontal.getVisibleAmount() / 2);
+
+    if(horizontal.getValue()  < (int) (boxSize * (2 + time / this.controller.getTempo()) - horizontal.getVisibleAmount())) {
+      horizontal.setValue((int) (boxSize * (2 + time / this.controller.getTempo())));
+    }
+
+
   }
 
   @Override

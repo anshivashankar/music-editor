@@ -103,6 +103,7 @@ public class ConcreteGuiViewPanel extends JPanel {
       g.fillRect(boxSize * (i + 2), boxSize, 2, boxSize * this.numberOfRows);
     }
 
+    // adds the scroll line to the frame
     g.setColor(Color.red);
     int xDist = (int) (boxSize * (2 + time / this.controller.getTempo()));
     g.drawLine(xDist, boxSize, xDist, boxSize * (this.numberOfRows + 1));
