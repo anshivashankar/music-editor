@@ -8,8 +8,11 @@ import javax.swing.*;
 
 import cs3500.music.controller.KeyboardHandler;
 import cs3500.music.controller.MusicController;
+import cs3500.music.model.IMusicModel;
 import cs3500.music.model.Note;
 import cs3500.music.model.ReadOnlyModelImpl;
+
+import static cs3500.music.view.ConcreteGuiViewPanel.boxSize;
 
 /**
  * A Frame that houses the visual component of a song
@@ -22,11 +25,15 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
 
   private final EditorFrame editWindow;
 
+  private final ReadOnlyModelImpl<Note> controller;
+
   /**
    * Creates new GuiView
    */
   public GuiViewFrame(ReadOnlyModelImpl<Note> piece) {
     this.setLayout(new BorderLayout());
+
+    this.controller = piece;
 
     this.displayPanel = new ConcreteGuiViewPanel(piece);
 
@@ -47,9 +54,7 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
 
   // TODO: rest of these need to be implemented
   @Override
-  public void togglePausePlay() {
-
-  }
+  public void togglePausePlay() {}
 
   @Override
   public void playAtTime(long sec) {
@@ -130,6 +135,10 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
     this.displayPanel.setResizeOnRepaint(false);
     this.repaint();
     this.displayPanel.setResizeOnRepaint(true);
+
+    JScrollBar horizontal = this.scrollPane.getHorizontalScrollBar();
+    horizontal.setValue(((int) (boxSize * (2 + time / this.controller.getTempo()))) -
+    horizontal.getVisibleAmount() / 2);
   }
 
   @Override

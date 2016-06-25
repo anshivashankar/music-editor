@@ -25,8 +25,9 @@ public class CombinedView implements GuiView<Note> {
           } catch (InterruptedException e) {
             e.printStackTrace();
           }
-          //TODO: add an if playing so repainting only happens when playing
-          guiView.updateTime(midiView.getTime());
+          if (midiView.isPlaying()) {
+            guiView.updateTime(midiView.getTime());
+          }
         }
       }
     }).start();

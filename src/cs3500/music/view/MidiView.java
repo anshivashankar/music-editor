@@ -77,6 +77,10 @@ public class MidiView implements View<Note> {
     }
   }
 
+  protected boolean isPlaying() {
+    return this.seq.isRunning();
+  }
+
   /**
    * View simply initializes the Track and Sequencer, does not call start or play the notes.
    */

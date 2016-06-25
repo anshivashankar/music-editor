@@ -17,7 +17,7 @@ import cs3500.music.model.ReadOnlyModelImpl;
 public class ConcreteGuiViewPanel extends JPanel {
 
   private final ReadOnlyModelImpl<Note> controller;
-  private static final int boxSize = 20;
+  protected static final int boxSize = 20;
   private Note minNote;
   private int numberOfRows;
   private int numberOfColumns;
