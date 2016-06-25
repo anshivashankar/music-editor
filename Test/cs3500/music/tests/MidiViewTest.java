@@ -91,7 +91,6 @@ public class MidiViewTest {
     view.view();
     view.moveToBeginning();
     view.moveToEnd();
-    //view.togglePausePlay();
     assertEquals(view.getTime(), 25);
   }
 
@@ -102,7 +101,27 @@ public class MidiViewTest {
 
   @Test
   public void getTime() {
+    IMusicModel<Note> piece = new Piece();
+    StringBuilder build = new StringBuilder();
+    piece.add(new Note(Note.Pitch.D, Note.Octave.Eight, 5, 0, 60, 0));
+    piece.add(new Note(Note.Pitch.D, Note.Octave.Eight, 5, 0, 60, 0));
+    piece.add(new Note(Note.Pitch.C, Note.Octave.Eight, 5, 0, 60, 0));
+    ReadOnlyModelImpl<Note> controller = new ReadOnlyModelImpl<Note>(piece);
+    MidiView view = new MidiView(controller, build);
+    view.view();
+    view.moveToBeginning();
+    view.moveToEnd();
+    assertEquals(view.getTime(), 25);
+    view.moveToBeginning();
+    assertEquals(view.getTime(), 0);
 
+    piece = new Piece();
+    build = new StringBuilder();
+
+    controller = new ReadOnlyModelImpl<Note>(piece);
+    view = new MidiView(controller, build);
+    view.view();
+    assertEquals(view.getTime(), 0);
   }
 
   @Test
