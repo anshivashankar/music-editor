@@ -5,23 +5,25 @@ import java.util.List;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
 import cs3500.music.model.IMusicModel;
+import cs3500.music.view.GuiView;
 import cs3500.music.view.View;
 
 /**
- * The Model Controller, only allows the View(s) to have read-only access.
+ * The Model Controller, handles the editing and reading of notes and tempo.
  */
 public class MusicControllerImpl<K> implements MusicController<K> {
   // these fields should all be final at the end
   // the setView is not required
   private IMusicModel<K> piece;
-
+  private View<K> view;
 
   /**
    * The MusicControllerImpl constructor, specifies that the IMusicModel being played is of type
    * Piece.
    */
-  public MusicControllerImpl(IMusicModel<K> piece) {
+  public MusicControllerImpl(IMusicModel<K> piece, View<K> view) {
     this.piece = piece;
+    this.view = view;
   }
 
   @Override

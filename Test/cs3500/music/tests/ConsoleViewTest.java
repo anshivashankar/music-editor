@@ -9,6 +9,7 @@ import cs3500.music.controller.MusicControllerImpl;
 import cs3500.music.model.IMusicModel;
 import cs3500.music.model.Note;
 import cs3500.music.model.Piece;
+import cs3500.music.model.ReadOnlyModelImpl;
 import cs3500.music.view.ConsoleView;
 import cs3500.music.view.View;
 
@@ -26,7 +27,7 @@ public class ConsoleViewTest {
             Arrays.asList(new Note(Note.Pitch.D_SHARP, Note.Octave.Five, 4, 3),
                     new Note(Note.Pitch.D, Note.Octave.Five, 2, 0),
                     new Note(Note.Pitch.A, Note.Octave.Five, 2, 0))));
-    MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
+    ReadOnlyModelImpl<Note> controller = new ReadOnlyModelImpl<Note>(piece);
     View console = new ConsoleView(build, controller);
     console.view();
     assertEquals(
@@ -49,7 +50,7 @@ public class ConsoleViewTest {
                     new Note(Note.Pitch.D, Note.Octave.Five, 2, 0),
                     new Note(Note.Pitch.A, Note.Octave.Five, 2, 0),
                     new Note(Note.Pitch.D_SHARP, Note.Octave.Five, 2, 5))));
-    MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
+    ReadOnlyModelImpl<Note> controller = new ReadOnlyModelImpl<Note>(piece);
     View console = new ConsoleView(build, controller);
     console.view();
     assertEquals(
@@ -71,7 +72,7 @@ public class ConsoleViewTest {
             Arrays.asList(new Note(Note.Pitch.D_SHARP, Note.Octave.Five, 4, 3),
                     new Note(Note.Pitch.C_SHARP, Note.Octave.Five, 4, 3),
                     new Note(Note.Pitch.C, Note.Octave.Five, 4, 3))));
-    MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
+    ReadOnlyModelImpl<Note> controller = new ReadOnlyModelImpl<Note>(piece);
     View console = new ConsoleView(build, controller);
     console.view();
     assertEquals(
@@ -93,7 +94,7 @@ public class ConsoleViewTest {
             Arrays.asList(new Note(Note.Pitch.D_SHARP, Note.Octave.Five, 4, 7),
                     new Note(Note.Pitch.C_SHARP, Note.Octave.Five, 4, 7),
                     new Note(Note.Pitch.C, Note.Octave.Five, 4, 7))));
-    MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
+    ReadOnlyModelImpl<Note> controller = new ReadOnlyModelImpl<Note>(piece);
     View console = new ConsoleView(build, controller);
     console.view();
     assertEquals(
@@ -119,7 +120,7 @@ public class ConsoleViewTest {
             Arrays.asList(new Note(Note.Pitch.D_SHARP, Note.Octave.Four, 4, 7),
                     new Note(Note.Pitch.C_SHARP, Note.Octave.Five, 4, 7),
                     new Note(Note.Pitch.C, Note.Octave.Five, 4, 7))));
-    MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
+    ReadOnlyModelImpl<Note> controller = new ReadOnlyModelImpl<Note>(piece);
     View console = new ConsoleView(build, controller);
     console.view();
     assertEquals(
@@ -142,7 +143,7 @@ public class ConsoleViewTest {
   public void testEmptyView() {
     Appendable build = new StringBuilder();
     IMusicModel<Note> piece = new Piece();
-    MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
+    ReadOnlyModelImpl<Note> controller = new ReadOnlyModelImpl<Note>(piece);
     View console = new ConsoleView(build, controller);
     console.view();
     assertEquals("", build.toString());

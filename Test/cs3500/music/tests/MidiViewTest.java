@@ -6,6 +6,7 @@ import cs3500.music.controller.MusicControllerImpl;
 import cs3500.music.model.IMusicModel;
 import cs3500.music.model.Note;
 import cs3500.music.model.Piece;
+import cs3500.music.model.ReadOnlyModelImpl;
 import cs3500.music.view.MidiView;
 
 import static org.junit.Assert.assertEquals;
@@ -23,9 +24,10 @@ public class MidiViewTest {
     piece.add(new Note(Note.Pitch.D, Note.Octave.Eight, 5, 0, 60, 0));
     piece.add(new Note(Note.Pitch.D, Note.Octave.Eight, 5, 0, 60, 0));
     piece.add(new Note(Note.Pitch.C, Note.Octave.Eight, 5, 0, 60, 0));
-    MusicControllerImpl<Note> controller = new MusicControllerImpl<Note>(piece);
+    ReadOnlyModelImpl<Note> controller = new ReadOnlyModelImpl<Note>(piece);
     MidiView view = new MidiView(controller, build);
     view.view();
+    view.playAtTime(-1);
     assertEquals(build.toString(), "midi opened\n" +
             "set Sequence\n" +
             "midi started\n" +
@@ -36,25 +38,22 @@ public class MidiViewTest {
             "[-128, 110, 60] 25\n" +
             "[-128, 110, 60] 25\n" +
             "[-128, 108, 60] 25\n" +
-            "[-1, 47, 0] 25\n" +
-            "midi stopped\n" +
-            "midi closed");
+            "[-1, 47, 0] 25\n");
 
     // test with no notes
     piece = new Piece();
     build = new StringBuilder();
 
 
-    controller = new MusicControllerImpl<Note>(piece);
+    controller = new ReadOnlyModelImpl<Note>(piece);
     view = new MidiView(controller, build);
     view.view();
+    view.playAtTime(-1);
     assertEquals(build.toString(), "midi opened\n" +
             "set Sequence\n" +
             "midi started\n" +
             "accessed track\n" +
-            "[-1, 47, 0] 0\n" +
-            "midi stopped\n" +
-            "midi closed");
+            "[-1, 47, 0] 0\n");
 
     // test with a singular note
     piece = new Piece();
@@ -62,18 +61,17 @@ public class MidiViewTest {
 
     piece.add(new Note(60, 5, 5, 60, 1));
 
-    controller = new MusicControllerImpl<Note>(piece);
+    controller = new ReadOnlyModelImpl<Note>(piece);
     view = new MidiView(controller, build);
     view.view();
+    view.playAtTime(-1);
     assertEquals(build.toString(), "midi opened\n" +
             "set Sequence\n" +
             "midi started\n" +
             "accessed track\n" +
             "[-111, 60, 60] 25\n" +
             "[-127, 60, 60] 50\n" +
-            "[-1, 47, 0] 50\n" +
-            "midi stopped\n" +
-            "midi closed");
+            "[-1, 47, 0] 50\n");
 
     // test with a chord of notes
     piece = new Piece();
@@ -83,9 +81,10 @@ public class MidiViewTest {
     piece.add(new Note(65, 5, 5, 60, 1));
     piece.add(new Note(69, 5, 5, 60, 1));
 
-    controller = new MusicControllerImpl<Note>(piece);
+    controller = new ReadOnlyModelImpl<Note>(piece);
     view = new MidiView(controller, build);
     view.view();
+    view.playAtTime(-1);
     assertEquals(build.toString(), "midi opened\n" +
             "set Sequence\n" +
             "midi started\n" +
@@ -96,9 +95,7 @@ public class MidiViewTest {
             "[-127, 60, 60] 50\n" +
             "[-127, 65, 60] 50\n" +
             "[-127, 69, 60] 50\n" +
-            "[-1, 47, 0] 50\n" +
-            "midi stopped\n" +
-            "midi closed");
+            "[-1, 47, 0] 50\n");
 
 
     // test with consecutive notes, and different kinds of note constructors
@@ -115,9 +112,10 @@ public class MidiViewTest {
     piece.add(new Note(65, 10, 20, 60, 1));
     piece.add(new Note(69, 10, 20, 60, 1));
 
-    controller = new MusicControllerImpl<Note>(piece);
+    controller = new ReadOnlyModelImpl<Note>(piece);
     view = new MidiView(controller, build);
     view.view();
+    view.playAtTime(-1);
     assertEquals(build.toString(), "midi opened\n" +
             "set Sequence\n" +
             "midi started\n" +
@@ -136,8 +134,6 @@ public class MidiViewTest {
             "[-127, 60, 60] 150\n" +
             "[-127, 65, 60] 150\n" +
             "[-127, 69, 60] 150\n" +
-            "[-1, 47, 0] 150\n" +
-            "midi stopped\n" +
-            "midi closed");
+            "[-1, 47, 0] 150\n");
   }
 }

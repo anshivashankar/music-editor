@@ -9,19 +9,20 @@ import javax.swing.*;
 
 import cs3500.music.controller.MusicController;
 import cs3500.music.model.Note;
+import cs3500.music.model.ReadOnlyModelImpl;
 
 /**
  * A JPanel that contains a visual view of a Composition
  */
 public class ConcreteGuiViewPanel extends JPanel {
 
-  private final MusicController<Note> controller;
+  private final ReadOnlyModelImpl<Note> controller;
   private static final int boxSize = 20;
   private final Note minNote;
   private final int numberOfRows;
   private final int numberOfColumns;
 
-  ConcreteGuiViewPanel(MusicController<Note> piece) {
+  ConcreteGuiViewPanel(ReadOnlyModelImpl<Note> piece) {
     super();
     this.controller = piece;
     Note maxNote = Collections.max(controller.getAllNotes());

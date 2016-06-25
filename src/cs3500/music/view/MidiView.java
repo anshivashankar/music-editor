@@ -14,12 +14,13 @@ import javax.sound.midi.Track;
 
 import cs3500.music.controller.MusicController;
 import cs3500.music.model.Note;
+import cs3500.music.model.ReadOnlyModelImpl;
 
 /**
  * MIDI view of an IMusicModel. Displays it visually, through JFrame.
  */
 public class MidiView implements View<Note> {
-  private final MusicController<Note> controller;
+  private final ReadOnlyModelImpl<Note> controller;
   private final Sequencer seq;
   private final Sequence sequence;
 
@@ -28,7 +29,7 @@ public class MidiView implements View<Note> {
    *
    * @param piece of type MusicControllerImpl, given the piece that we would like to test.
    */
-  public MidiView(MusicController<Note> piece) {
+  public MidiView(ReadOnlyModelImpl<Note> piece) {
     Sequencer seq2 = null;
     Sequence sequence2 = null;
     controller = piece;
@@ -59,7 +60,7 @@ public class MidiView implements View<Note> {
    * @param string of type StringBuilder, so that we can log the calls of start(), open(), close(),
    *               and stop().
    */
-  public MidiView(MusicController<Note> piece, StringBuilder string) {
+  public MidiView(ReadOnlyModelImpl<Note> piece, StringBuilder string) {
     controller = piece;
     seq = new MockSequencer(string);
     Sequence sequence2 = null;
@@ -108,9 +109,10 @@ public class MidiView implements View<Note> {
       }
     }
 
-    /*
-    seq.start();
 
+    //seq.start();
+
+    /*
     try {
       // divide my 1000 because of the microsecond to millisecond conversion
       Thread.sleep((long) controller.lastBeat() * (long) controller.getTempo() / 1000);
@@ -133,7 +135,7 @@ public class MidiView implements View<Note> {
 
   @Override
   public void playAtTime(long sec) {
-    seq.stop();
+    //seq.stop();
     seq.setMicrosecondPosition(sec);
     seq.start();
   }
@@ -143,11 +145,12 @@ public class MidiView implements View<Note> {
 
   @Override
   public void moveToBeginning() {
-
+    seq.setMicrosecondPosition(-1);
   }
 
   @Override
   public void moveToEnd() {
+    seq.setMicrosecondPosition(controller.getTempo() * controller.lastBeat());
 
   }
 }

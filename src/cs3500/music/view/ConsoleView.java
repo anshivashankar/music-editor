@@ -6,15 +6,16 @@ import java.util.Collections;
 
 import cs3500.music.controller.MusicController;
 import cs3500.music.model.Note;
+import cs3500.music.model.ReadOnlyModelImpl;
 
 /**
  * Console view of an IMusicModel, displays it through console, using System.out.
  */
 public class ConsoleView implements View<Note> {
-  private MusicController<Note> controller;
+  private ReadOnlyModelImpl<Note> controller;
   private Appendable app;
 
-  public ConsoleView(Appendable app, MusicController<Note> piece) {
+  public ConsoleView(Appendable app, ReadOnlyModelImpl<Note> piece) {
     this.app = app;
     controller = piece;
   }
