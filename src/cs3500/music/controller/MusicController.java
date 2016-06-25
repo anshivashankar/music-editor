@@ -41,12 +41,14 @@ public interface MusicController<K> {
 
   /**
    * Adds the given K to the piece
+   *
    * @param k of type K
    */
   void add(K k);
 
   /**
    * Removes the given K from the piece
+   *
    * @param k of type K
    */
   void remove(K k);

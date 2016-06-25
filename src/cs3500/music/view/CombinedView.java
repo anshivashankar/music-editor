@@ -10,15 +10,21 @@ import cs3500.music.model.Piece;
  */
 public class CombinedView implements GuiView<Note> {
 
-  long time;
   GuiViewFrame guiView;
   MidiView midiView;
 
 
   public CombinedView(GuiViewFrame guiView, MidiView midiView) {
-    this.time = 0;
     this.guiView = guiView;
     this.midiView = midiView;
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        while (true) {
+          guiView.updateTime(midiView.getTime()/1000);
+        }
+      }
+    }).start();
   }
 
   @Override
@@ -33,7 +39,6 @@ public class CombinedView implements GuiView<Note> {
 
 
     guiView.togglePausePlay();
-    time = midiView.getTime();
     midiView.togglePausePlay();
   }
 
@@ -41,12 +46,10 @@ public class CombinedView implements GuiView<Note> {
   public void playAtTime(long sec) {
     guiView.playAtTime(sec);
     midiView.playAtTime(sec);
-    time = sec;
   }
 
   @Override
   public void moveToBeginning() {
-    time = 0;
     midiView.moveToBeginning();
     guiView.moveToBeginning();
   }
@@ -55,7 +58,6 @@ public class CombinedView implements GuiView<Note> {
   public void moveToEnd() {
     midiView.moveToEnd();
     guiView.moveToEnd();
-    time = midiView.getTime();
   }
 
   @Override
@@ -109,10 +111,5 @@ public class CombinedView implements GuiView<Note> {
     this.midiView.update();
   }
 
-  @Override
-  public void updateTime(long time2) {
-    this.time = midiView.getTime();
-    guiView.updateTime(this.time/1000);
-  }
 
 }

@@ -127,7 +127,7 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
     vertical.setValue(vertical.getValue() + 10);
   }
 
-  @Override
+  //@Override
   public void updateTime(long time) {
     this.time = time;
   }

@@ -58,9 +58,7 @@ public class MusicEditor {
       } catch (FileNotFoundException e) {
         System.out.println("File not found");
       }
-    }
-
-    else if(modelType.equals("combined")) {
+    } else if (modelType.equals("combined")) {
       try {
         IMusicModel<Note> model = MusicReader.parseFile(
                 new FileReader(fileName), comp);
@@ -72,7 +70,7 @@ public class MusicEditor {
         GuiView<Note> view = new CombinedView(guiView, midiView);
         GUIMusicControllerImpl<Note> controller = new GUIMusicControllerImpl<Note>(model, view);
         controller.view();
-      } catch(FileNotFoundException e) {
+      } catch (FileNotFoundException e) {
         System.out.println("File not found");
       }
     }

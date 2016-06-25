@@ -20,14 +20,6 @@ public class GUIMusicControllerImpl<K> implements MusicController<K> {
     this.view.addKeyListener(this.getNormalFrameKeyHandler());
     this.view.addEditWindowKeyListener(this.getEditFrameKeyHandler());
     this.view.view();
-    new Thread( new Runnable() {
-      @Override
-      public void run() {
-        while(true) {
-          view.updateTime(2);
-        }
-      }
-    }).start();
   }
 
   private KeyListener getEditFrameKeyHandler() {
@@ -57,7 +49,8 @@ public class GUIMusicControllerImpl<K> implements MusicController<K> {
 
       try {
         piece.remove(note);
-      } catch (IllegalArgumentException ignored) {}
+      } catch (IllegalArgumentException ignored) {
+      }
 
       view.update();
       view.closeEditWindow();
@@ -136,8 +129,7 @@ public class GUIMusicControllerImpl<K> implements MusicController<K> {
   public void remove(K k) {
     try {
       piece.remove(k);
-    }
-    catch(IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
       e.printStackTrace();
       System.err.println("Note to be removed not in Model");
     }

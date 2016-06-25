@@ -18,6 +18,7 @@ public interface View<K> {
 
   /**
    * Plays the song starting from a specific time stamp.
+   *
    * @param sec of type long, in microseconds.
    */
   void playAtTime(long sec);

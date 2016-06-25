@@ -55,8 +55,7 @@ public class MusicControllerImpl<K> implements MusicController<K> {
   public void remove(K k) {
     try {
       piece.remove(k);
-    }
-    catch(IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
       e.printStackTrace();
       System.err.println("Note to be removed not in Model");
     }

@@ -21,9 +21,9 @@ public class MockSequence extends Sequence {
 
   @Override
   public float getDivisionType() {
-    for(Track t : super.getTracks()) {
+    for (Track t : super.getTracks()) {
       string.append("accessed track\n");
-      for(int count = 0; count!= t.size(); count++) {
+      for (int count = 0; count != t.size(); count++) {
         string.append(Arrays.toString(t.get(count).getMessage().getMessage())).append(" ")
                 .append(t.get(count).getTick()).append("\n");
       }

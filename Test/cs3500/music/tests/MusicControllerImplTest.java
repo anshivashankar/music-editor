@@ -15,7 +15,7 @@ import cs3500.music.view.View;
 import static org.junit.Assert.*;
 
 /**
- * Created by ashwinshivashankar on 6/25/16.
+ * MusicControllerImpl tests.
  */
 public class MusicControllerImplTest {
   @Test

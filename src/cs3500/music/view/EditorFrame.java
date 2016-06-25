@@ -68,7 +68,7 @@ public class EditorFrame extends JFrame {
               Integer.parseInt(this.startBeat.getText()),
               Integer.parseInt(this.volume.getText()),
               Integer.parseInt(this.instrument.getText()) - 1);
-    } catch(NumberFormatException e) {
+    } catch (NumberFormatException e) {
       throw new IllegalArgumentException("Bad Edit Window Inputs");
     }
 

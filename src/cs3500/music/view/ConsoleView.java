@@ -21,8 +21,8 @@ public class ConsoleView implements View<Note> {
   }
 
   /**
-   * outputs to System.out that represents the piece of music in and only shows the min to max
-   * notes required
+   * outputs to System.out that represents the piece of music in and only shows the min to max notes
+   * required
    */
   public void view() {
 
@@ -109,13 +109,16 @@ public class ConsoleView implements View<Note> {
   }
 
   @Override
-  public void moveToBeginning() {}
+  public void moveToBeginning() {
+  }
 
   @Override
-  public void moveToEnd() {}
+  public void moveToEnd() {
+  }
 
   @Override
-  public void update() {}
+  public void update() {
+  }
 
 
   /**

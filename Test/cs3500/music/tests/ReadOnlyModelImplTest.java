@@ -12,7 +12,8 @@ import cs3500.music.model.ReadOnlyModelImpl;
 import static org.junit.Assert.*;
 
 /**
- * Created by ashwinshivashankar on 6/25/16.
+ * ReadOnlyModelImpl test. This is very similar to a controller test, however this only has the
+ * read-only methods.
  */
 public class ReadOnlyModelImplTest {
   @Test
