@@ -15,8 +15,11 @@ public class EditorFrame extends JFrame {
   private final JTextField pitch;
   private final JTextField startBeat;
   private final JTextField duration;
+  private final JTextField instrument;
+  private final JTextField volume;
 
-  public EditorFrame() {
+
+  protected EditorFrame() {
 
     this.setLayout(new FlowLayout());
     this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -25,6 +28,8 @@ public class EditorFrame extends JFrame {
     this.pitch = new JTextField(3);
     this.startBeat = new JTextField(5);
     this.duration = new JTextField(5);
+    this.instrument = new JTextField(2);
+    this.volume = new JTextField(2);
 
     this.add(new JLabel("Pitch: "));
     this.add(this.pitch);
@@ -35,15 +40,24 @@ public class EditorFrame extends JFrame {
     this.add(new JLabel("Duration: "));
     this.add(this.duration);
 
+    this.add(new JLabel("Volume: "));
+    this.add(this.volume);
+
+    this.add(new JLabel("Instrument: "));
+    this.add(this.instrument);
+
     this.add(new JLabel("Press enter to add a note and delete to remove a note"));
 
     this.pack();
   }
 
-  public void addKeyListenerToFields(KeyListener kl) {
+  protected void addKeyListenerToFields(KeyListener kl) {
     this.pitch.addKeyListener(kl);
     this.startBeat.addKeyListener(kl);
     this.duration.addKeyListener(kl);
+    this.volume.addKeyListener(kl);
+    this.instrument.addKeyListener(kl);
+    this.addKeyListener(kl);
   }
 
   public Note getNote() {
@@ -51,7 +65,9 @@ public class EditorFrame extends JFrame {
     try {
       n = new Note(Integer.parseInt(this.pitch.getText()),
               Integer.parseInt(this.duration.getText()),
-              Integer.parseInt(this.startBeat.getText()));
+              Integer.parseInt(this.startBeat.getText()),
+              Integer.parseInt(this.volume.getText()),
+              Integer.parseInt(this.instrument.getText()) - 1);
     } catch(NumberFormatException e) {
       throw new IllegalArgumentException("Bad Edit Window Inputs");
     }
@@ -59,10 +75,12 @@ public class EditorFrame extends JFrame {
     return n;
   }
 
-  public void clearFields() {
+  protected void clearFields() {
     this.pitch.setText("");
     this.startBeat.setText("");
     this.duration.setText("");
+    this.volume.setText("");
+    this.instrument.setText("");
   }
 
   // for testing, delete later

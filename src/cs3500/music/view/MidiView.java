@@ -148,13 +148,19 @@ public class MidiView implements View<Note> {
 
   @Override
   public void moveToBeginning() {
-    seq.setMicrosecondPosition(-1);
+    seq.setMicrosecondPosition(0);
   }
 
   @Override
   public void moveToEnd() {
     seq.setMicrosecondPosition(controller.getTempo() * controller.lastBeat());
 
+  }
+
+  @Override
+  public void update() {
+    this.sequence.deleteTrack(this.sequence.getTracks()[0]);
+    this.view();
   }
 
   public long getTime() {

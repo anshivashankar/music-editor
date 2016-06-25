@@ -5,6 +5,8 @@ import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.scene.input.KeyCode;
+
 /**
  * Handles Keyboard events
  */

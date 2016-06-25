@@ -58,8 +58,15 @@ public final class Note implements Comparable<Note> {
       throw new IllegalArgumentException("Duration must be positive");
     }
     this.startBeat = startBeat;
-    // default variables
+
+    if (volume < 0) {
+      throw new IllegalArgumentException("Volume must be positive");
+    }
     this.volume = volume;
+
+    if (instrument < 0 || instrument > 15) {
+      throw new IllegalArgumentException("Instrument must be in the correct range");
+    }
     this.instrument = instrument;
   }
 
@@ -68,7 +75,7 @@ public final class Note implements Comparable<Note> {
    * function
    */
   public Note(int notePlace, int duration, int startBeat) {
-    this(notePlace, duration, startBeat, 10, 0);
+    this(notePlace, duration, startBeat, 100, 0);
   }
 
   /**
@@ -101,8 +108,15 @@ public final class Note implements Comparable<Note> {
       throw new IllegalArgumentException("Duration must be positive");
     }
     this.startBeat = startBeat;
-    // default variables
+
+    if (volume < 0) {
+      throw new IllegalArgumentException("Volume must be positive");
+    }
     this.volume = volume;
+
+    if (instrument < 0 || instrument > 15) {
+      throw new IllegalArgumentException("Instrument must be in the correct range");
+    }
     this.instrument = instrument;
   }
 

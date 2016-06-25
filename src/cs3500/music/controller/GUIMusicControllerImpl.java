@@ -1,6 +1,7 @@
 package cs3500.music.controller;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
 
 import cs3500.music.model.IMusicModel;
@@ -16,23 +17,26 @@ public class GUIMusicControllerImpl<K> implements MusicController<K> {
   public GUIMusicControllerImpl(IMusicModel<K> model, GuiView<K> view) {
     this.piece = model;
     this.view = view;
-    this.view.addKeyListener(getNormalFrameKeyHandler());
+    this.view.addKeyListener(this.getNormalFrameKeyHandler());
+    this.view.addEditWindowKeyListener(this.getEditFrameKeyHandler());
     this.view.view();
   }
 
-  private KeyboardHandler getEditFrameKeyHandler() {
+  private KeyListener getEditFrameKeyHandler() {
     // adds the key bindings to the KeyBoardHandlers
     KeyboardHandler kh = new KeyboardHandler();
 
     kh.addKeyPressedRunnable(KeyEvent.VK_ENTER, () -> {
       K note;
       try {
+        System.out.println("here");
         note = view.getEditNote();
       } catch (IllegalArgumentException e) {
         return;
       }
 
       piece.add(note);
+      view.update();
       view.closeEditWindow();
     });
 
@@ -48,18 +52,21 @@ public class GUIMusicControllerImpl<K> implements MusicController<K> {
         piece.remove(note);
       } catch (IllegalArgumentException ignored) {}
 
+      view.update();
       view.closeEditWindow();
     });
+
+    //TODO: add escape key for exiting the window and make sure the editWindow exits as it should
 
     return kh;
   }
 
-  private KeyboardHandler getNormalFrameKeyHandler() {
+  private KeyListener getNormalFrameKeyHandler() {
     // adds the key bindings to the KeyBoardHandlers
     KeyboardHandler kh = new KeyboardHandler();
 
-    kh.addKeyPressedRunnable(KeyEvent.VK_N, () -> {
-      view.openEditWindow(getEditFrameKeyHandler());
+    kh.addKeyPressedRunnable(KeyEvent.VK_E, () -> {
+      view.openEditWindow();
     });
 
     kh.addKeyPressedRunnable(KeyEvent.VK_SPACE, () -> {

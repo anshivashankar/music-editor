@@ -31,4 +31,9 @@ public interface View<K> {
    * makes the current view move back to the end of the piece
    */
   void moveToEnd();
+
+  /**
+   * updates the view according to the models
+   */
+  void update();
 }

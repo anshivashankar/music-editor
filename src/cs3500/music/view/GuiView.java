@@ -26,11 +26,18 @@ public interface GuiView<K> extends View<K> {
   /**
    * opens a new Editor Frame with the given KeyListener
    *
-   * @param kl the KeyListener to be given to the Editor Frame
    * @throws IllegalArgumentException if there is already an Editor Frame open
    */
-  void openEditWindow(KeyListener kl) throws IllegalArgumentException;
+  void openEditWindow() throws IllegalArgumentException;
 
+  /**
+   * adds a key listener to the editor frame
+   */
+  void addEditWindowKeyListener(KeyListener kl);
+
+  /**
+   * closes the editor window
+   */
   void closeEditWindow();
 
   /**
@@ -52,4 +59,5 @@ public interface GuiView<K> extends View<K> {
    * Scrolls the GUI Down.
    */
   void scrollDown();
+
 }

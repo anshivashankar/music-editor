@@ -114,6 +114,9 @@ public class ConsoleView implements View<Note> {
   @Override
   public void moveToEnd() {}
 
+  @Override
+  public void update() {}
+
 
   /**
    * returns string that repeats the given string s factor number times

@@ -69,8 +69,13 @@ public class CombinedView implements GuiView<Note> {
   }
 
   @Override
-  public void openEditWindow(KeyListener kl) throws IllegalArgumentException {
-    this.guiView.openEditWindow(kl);
+  public void openEditWindow() throws IllegalArgumentException {
+    this.guiView.openEditWindow();
+  }
+
+  @Override
+  public void addEditWindowKeyListener(KeyListener kl) {
+    this.guiView.addEditWindowKeyListener(kl);
   }
 
   @Override
@@ -96,6 +101,12 @@ public class CombinedView implements GuiView<Note> {
   @Override
   public void scrollDown() {
     guiView.scrollDown();
+  }
+
+  @Override
+  public void update() {
+    this.guiView.update();
+    this.midiView.update();
   }
 
 }
