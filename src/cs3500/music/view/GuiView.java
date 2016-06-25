@@ -40,4 +40,14 @@ public interface GuiView<K> extends View<K> {
    * Scrolls the GUI Left.
    */
   void scrollLeft();
+
+  /**
+   * Scrolls the GUI Up.
+   */
+  void scrollUp();
+
+  /**
+   * Scrolls the GUI Down.
+   */
+  void scrollDown();
 }

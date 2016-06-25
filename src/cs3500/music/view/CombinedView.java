@@ -79,4 +79,14 @@ public class CombinedView<K> implements GuiView<K> {
     guiView.scrollLeft();
   }
 
+  @Override
+  public void scrollUp() {
+    guiView.scrollUp();
+  }
+
+  @Override
+  public void scrollDown() {
+    guiView.scrollDown();
+  }
+
 }

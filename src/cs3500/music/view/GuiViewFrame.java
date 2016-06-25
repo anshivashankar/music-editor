@@ -18,14 +18,20 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
 
   private final JPanel displayPanel; // You may want to refine this to a subtype of JPanel
 
+  private final JScrollPane scrollPane;
+
   /**
    * Creates new GuiView
    */
   public GuiViewFrame(ReadOnlyModelImpl<Note> piece) {
     this.setLayout(new BorderLayout());
+
     this.displayPanel = new ConcreteGuiViewPanel(piece);
+
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    this.getContentPane().add(new JScrollPane(displayPanel));
+
+    this.scrollPane = new JScrollPane(displayPanel);
+    this.getContentPane().add(scrollPane);
     this.pack();
   }
 
@@ -74,12 +80,25 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
 
   @Override
   public void scrollRight() {
-    displayPanel.setAlignmentX(displayPanel.getX() - 10);
-    displayPanel.setLocation(0, 0);
+    JScrollBar horizontal = this.scrollPane.getHorizontalScrollBar();
+    horizontal.setValue(horizontal.getValue() + 10);
   }
 
   @Override
   public void scrollLeft() {
+    JScrollBar horizontal = this.scrollPane.getHorizontalScrollBar();
+    horizontal.setValue(horizontal.getValue() - 10);
+  }
 
+  @Override
+  public void scrollUp() {
+    JScrollBar vertical = this.scrollPane.getVerticalScrollBar();
+    vertical.setValue(vertical.getValue() - 10);
+  }
+
+  @Override
+  public void scrollDown() {
+    JScrollBar vertical = this.scrollPane.getVerticalScrollBar();
+    vertical.setValue(vertical.getValue() + 10);
   }
 }

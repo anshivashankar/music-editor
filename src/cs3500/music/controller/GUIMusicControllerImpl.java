@@ -78,6 +78,14 @@ public class GUIMusicControllerImpl<K> implements MusicController<K> {
       view.scrollLeft();
     });
 
+    kh.addKeyPressedRunnable(KeyEvent.VK_DOWN, () -> {
+      view.scrollDown();
+    });
+
+    kh.addKeyPressedRunnable(KeyEvent.VK_UP, () -> {
+      view.scrollUp();
+    });
+
     return kh;
   }
 
