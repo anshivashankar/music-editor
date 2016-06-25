@@ -37,13 +37,10 @@ public class CombinedView implements GuiView<Note> {
   public void view() {
     guiView.view();
     midiView.view();
-    //this.pause();
   }
 
   @Override
   public void togglePausePlay() {
-
-
     guiView.togglePausePlay();
     midiView.togglePausePlay();
   }
@@ -78,6 +75,9 @@ public class CombinedView implements GuiView<Note> {
 
   @Override
   public void openEditWindow() throws IllegalArgumentException {
+    if (midiView.isPlaying()) {
+      this.togglePausePlay();
+    }
     this.guiView.openEditWindow();
   }
 
