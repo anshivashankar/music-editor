@@ -32,6 +32,7 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
   @Override
   public void view() {
     this.setVisible(true);
+    this.requestFocus();
   }
 
   // TODO: rest of these need to be implemented

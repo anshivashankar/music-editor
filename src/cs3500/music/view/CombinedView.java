@@ -8,7 +8,7 @@ import cs3500.music.model.Piece;
 /**
  * A CombinedView to combine both the MidiView and GuiViewFrame.
  */
-public class CombinedView implements GuiView<Note> {
+public class CombinedView<K> implements GuiView<K> {
 
   long time;
   GuiViewFrame guiView;
@@ -56,11 +56,11 @@ public class CombinedView implements GuiView<Note> {
 
   @Override
   public void addKeyListener(KeyListener kl) {
-
+    this.guiView.addKeyListener(kl);
   }
 
   @Override
-  public Note getEditNote() throws IllegalArgumentException {
+  public K getEditNote() throws IllegalArgumentException {
     return null;
   }
 

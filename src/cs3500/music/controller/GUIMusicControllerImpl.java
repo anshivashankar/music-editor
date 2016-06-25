@@ -17,6 +17,7 @@ public class GUIMusicControllerImpl<K> implements MusicController<K> {
     this.piece = model;
     this.view = view;
     this.view.addKeyListener(getNormalFrameKeyHandler());
+    this.view.view();
   }
 
   private KeyboardHandler getEditFrameKeyHandler() {

@@ -5,16 +5,15 @@ import java.io.FileReader;
 
 import cs3500.music.controller.GUIMusicControllerImpl;
 import cs3500.music.controller.MusicController;
-import cs3500.music.controller.MusicControllerImpl;
 import cs3500.music.model.IMusicModel;
 import cs3500.music.model.Note;
-import cs3500.music.model.Piece;
 import cs3500.music.model.ReadOnlyModelImpl;
 import cs3500.music.util.CompositionBuilder;
 import cs3500.music.util.CompositionBuilderImpl;
 import cs3500.music.util.MusicReader;
 import cs3500.music.view.CombinedView;
 import cs3500.music.view.ConsoleView;
+import cs3500.music.view.GuiView;
 import cs3500.music.view.GuiViewFrame;
 import cs3500.music.view.View;
 import cs3500.music.view.MidiView;
@@ -30,10 +29,9 @@ public class MusicEditor {
     String fileName = args[0];
     String modelType = args[1];
     CompositionBuilder<IMusicModel<Note>> comp = new CompositionBuilderImpl();
-    View view;
     if (modelType.equals("console")) {
       try {
-        view = new ConsoleView(System.out, new ReadOnlyModelImpl<Note>(
+        View view = new ConsoleView(System.out, new ReadOnlyModelImpl<Note>(
                 MusicReader.parseFile(new FileReader(fileName), comp)));
         view.view();
       } catch (FileNotFoundException e) {
@@ -42,7 +40,7 @@ public class MusicEditor {
     } else if (modelType.equals("midi")) {
       // use the midi view
       try {
-        view = new MidiView(new ReadOnlyModelImpl<Note>(
+        View view = new MidiView(new ReadOnlyModelImpl<Note>(
                 MusicReader.parseFile(new FileReader(fileName), comp)));
         view.view();
       } catch (FileNotFoundException e) {
@@ -50,7 +48,8 @@ public class MusicEditor {
       }
     } else if (modelType.equals("visual")) {
       try {
-        view = new GuiViewFrame(new ReadOnlyModelImpl<Note>(
+        // TODO: make this use the GuiView ans GUI Controller as well
+        View view = new GuiViewFrame(new ReadOnlyModelImpl<Note>(
                 MusicReader.parseFile(new FileReader(fileName), comp)));
         view.view();
       } catch (FileNotFoundException e) {
@@ -60,15 +59,15 @@ public class MusicEditor {
 
     else if(modelType.equals("combined")) {
       try {
+        IMusicModel<Note> model = MusicReader.parseFile(
+                new FileReader(fileName), comp);
+        ReadOnlyModelImpl<Note> roModel =
+                new ReadOnlyModelImpl<Note>(model);
 
-        ReadOnlyModelImpl<Note> controller =
-                new ReadOnlyModelImpl<Note>(MusicReader.parseFile(
-                        new FileReader(fileName), comp));
-
-        GuiViewFrame guiView = new GuiViewFrame(controller);
-        MidiView midiView = new MidiView(controller);
-        view = new CombinedView(guiView, midiView);
-        view.view();
+        GuiViewFrame guiView = new GuiViewFrame(roModel);
+        MidiView midiView = new MidiView(roModel);
+        GuiView<Note> view = new CombinedView(guiView, midiView);
+        MusicController<Note> controller = new GUIMusicControllerImpl<Note>(model, view);
         view.playAtTime(0);
       } catch(FileNotFoundException e) {
         System.out.println("File not found");
