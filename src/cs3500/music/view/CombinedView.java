@@ -30,8 +30,11 @@ public class CombinedView implements GuiView<Note> {
 
   @Override
   public void togglePausePlay() {
-    guiView.playAtTime(0);
-    midiView.playAtTime(0);
+
+
+    guiView.togglePausePlay();
+    time = midiView.getTime();
+    midiView.togglePausePlay();
   }
 
   @Override
@@ -52,6 +55,7 @@ public class CombinedView implements GuiView<Note> {
   public void moveToEnd() {
     midiView.moveToEnd();
     guiView.moveToEnd();
+    time = midiView.getTime();
   }
 
   @Override
