@@ -77,6 +77,9 @@ public class MidiView implements View<Note> {
     }
   }
 
+  /**
+   * View simply initializes the Track and Sequencer, does not call start or play the notes.
+   */
   public void view() {
 
 
@@ -152,5 +155,9 @@ public class MidiView implements View<Note> {
   public void moveToEnd() {
     seq.setMicrosecondPosition(controller.getTempo() * controller.lastBeat());
 
+  }
+
+  public long getTime() {
+    return seq.getMicrosecondPosition();
   }
 }
