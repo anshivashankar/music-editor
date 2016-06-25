@@ -62,4 +62,9 @@ public class MusicControllerImpl<K> implements MusicController<K> {
     }
   }
 
+  @Override
+  public void view() {
+    view.view();
+  }
+
 }

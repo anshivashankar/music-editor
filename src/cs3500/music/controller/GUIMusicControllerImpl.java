@@ -125,4 +125,10 @@ public class GUIMusicControllerImpl<K> implements MusicController<K> {
     }
   }
 
+  @Override
+  public void view() {
+    view.view();
+
+  }
+
 }

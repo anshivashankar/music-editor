@@ -50,4 +50,10 @@ public interface MusicController<K> {
    * @param k of type K
    */
   void remove(K k);
+
+  /**
+   * Calls the view method on the given view.
+   */
+  void view();
+
 }

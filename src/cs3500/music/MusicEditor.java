@@ -5,6 +5,7 @@ import java.io.FileReader;
 
 import cs3500.music.controller.GUIMusicControllerImpl;
 import cs3500.music.controller.MusicController;
+import cs3500.music.controller.MusicControllerImpl;
 import cs3500.music.model.IMusicModel;
 import cs3500.music.model.Note;
 import cs3500.music.model.ReadOnlyModelImpl;
@@ -43,6 +44,7 @@ public class MusicEditor {
         View view = new MidiView(new ReadOnlyModelImpl<Note>(
                 MusicReader.parseFile(new FileReader(fileName), comp)));
         view.view();
+        view.playAtTime(0);
       } catch (FileNotFoundException e) {
         System.out.println("File not found");
       }
@@ -52,6 +54,7 @@ public class MusicEditor {
         View view = new GuiViewFrame(new ReadOnlyModelImpl<Note>(
                 MusicReader.parseFile(new FileReader(fileName), comp)));
         view.view();
+        view.playAtTime(0);
       } catch (FileNotFoundException e) {
         System.out.println("File not found");
       }

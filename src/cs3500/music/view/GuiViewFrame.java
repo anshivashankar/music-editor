@@ -54,13 +54,15 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
 
   @Override
   public void moveToBeginning() {
-    displayPanel.setAlignmentX(0);
+    JScrollBar horizontal = this.scrollPane.getHorizontalScrollBar();
+    horizontal.setValue(0);
 
   }
 
   @Override
   public void moveToEnd() {
-
+    JScrollBar horizontal = this.scrollPane.getHorizontalScrollBar();
+    horizontal.setValue(displayPanel.getWidth());
   }
 
   @Override
@@ -75,7 +77,10 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
 
   @Override
   public void openEditWindow(KeyListener kl) throws IllegalArgumentException {
-
+    JFrame editWindow = new EditorFrame();
+    editWindow.addKeyListener(kl);
+    //editWindow.addKeyListenerToFields(kl);
+    editWindow.setVisible(true);
   }
 
   @Override
