@@ -30,4 +30,14 @@ public interface GuiView<K> extends View<K> {
    * @throws IllegalArgumentException if there is already an Editor Frame open
    */
   void openEditWindow(KeyListener kl) throws IllegalArgumentException;
+
+  /**
+   * Scrolls the GUI Right.
+   */
+  void scrollRight();
+
+  /**
+   * Scrolls the GUI Left.
+   */
+  void scrollLeft();
 }

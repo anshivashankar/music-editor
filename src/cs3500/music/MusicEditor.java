@@ -3,6 +3,8 @@ package cs3500.music;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+import cs3500.music.controller.GUIMusicControllerImpl;
+import cs3500.music.controller.MusicController;
 import cs3500.music.controller.MusicControllerImpl;
 import cs3500.music.model.IMusicModel;
 import cs3500.music.model.Note;
@@ -24,7 +26,6 @@ public class MusicEditor {
   // main method to execute the program
 
   public static void main(String[] args) {
-    // TODO: instead of just haing a view, have a controller that contains a view
 
     String fileName = args[0];
     String modelType = args[1];
@@ -73,6 +74,5 @@ public class MusicEditor {
         System.out.println("File not found");
       }
     }
-
   }
 }

@@ -47,6 +47,7 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
 
   @Override
   public void moveToBeginning() {
+    displayPanel.setAlignmentX(0);
 
   }
 
@@ -67,6 +68,17 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
 
   @Override
   public void openEditWindow(KeyListener kl) throws IllegalArgumentException {
+
+  }
+
+  @Override
+  public void scrollRight() {
+    displayPanel.setAlignmentX(displayPanel.getX() - 10);
+    displayPanel.setLocation(0, 0);
+  }
+
+  @Override
+  public void scrollLeft() {
 
   }
 }
