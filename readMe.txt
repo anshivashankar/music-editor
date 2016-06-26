@@ -5,7 +5,7 @@ Home - Jump to beginning
 End - Jump to end
 E - Open add/deletion window
     Note: The editor  window takes a midi pitch number (integer).
-    Note: To add/delete notes, press enter after all the fields are filled in.
+    Note: To add notes, press enter after all the fields are filled in. To delete press delete
     Note: If a note is added that is higher/lower pitch than the current highest/lowest pitch,
     the window will resize.
     In order to exit the window, please press 'Escape' on your keyboard.
