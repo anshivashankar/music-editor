@@ -7,16 +7,15 @@ import java.util.List;
 
 import javax.swing.*;
 
-import cs3500.music.controller.MusicController;
 import cs3500.music.model.Note;
-import cs3500.music.model.ReadOnlyModelImpl;
+import cs3500.music.model.ReadOnlyModel;
 
 /**
  * A JPanel that contains a visual view of a Composition
  */
 public class ConcreteGuiViewPanel extends JPanel {
 
-  private final ReadOnlyModelImpl<Note> controller;
+  private final ReadOnlyModel<Note> controller;
   protected static final int boxSize = 20;
   private Note minNote;
   private int numberOfRows;
@@ -24,7 +23,7 @@ public class ConcreteGuiViewPanel extends JPanel {
   private boolean resizeOnRepaint;
   private long time;
 
-  ConcreteGuiViewPanel(ReadOnlyModelImpl<Note> piece) {
+  ConcreteGuiViewPanel(ReadOnlyModel<Note> piece) {
     super();
     this.controller = piece;
     this.determineSize();
@@ -86,8 +85,9 @@ public class ConcreteGuiViewPanel extends JPanel {
         if (i == n.getStartBeat()) {
           g.setColor(Color.darkGray);
           g.fillRect(boxSize * (i + 2) + 2, boxSize * (noteRow + 1) + 2, boxSize, boxSize - 2);
+          notes.add(n);
         } else {
-          // makes sure not to draw over a note that has already been drawn
+          // makes sure not to draw over a note's startBeat
           if (!notes.contains(n)) {
             g.setColor(Color.green);
             g.fillRect(boxSize * (i + 2) + 2, boxSize * (noteRow + 1) + 2, boxSize, boxSize - 2);

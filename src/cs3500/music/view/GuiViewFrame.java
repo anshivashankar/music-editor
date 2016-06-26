@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 import javax.swing.*;
 
 import cs3500.music.model.Note;
-import cs3500.music.model.ReadOnlyModelImpl;
+import cs3500.music.model.ReadOnlyModel;
 
 import static cs3500.music.view.ConcreteGuiViewPanel.boxSize;
 
@@ -21,12 +21,12 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
 
   private final EditorFrame editWindow;
 
-  private final ReadOnlyModelImpl<Note> controller;
+  private final ReadOnlyModel<Note> controller;
 
   /**
    * Creates new GuiView
    */
-  public GuiViewFrame(ReadOnlyModelImpl<Note> piece) {
+  public GuiViewFrame(ReadOnlyModel<Note> piece) {
     this.setLayout(new BorderLayout());
 
     this.controller = piece;

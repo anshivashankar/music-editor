@@ -12,15 +12,14 @@ import javax.sound.midi.Sequencer;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 
-import cs3500.music.controller.MusicController;
 import cs3500.music.model.Note;
-import cs3500.music.model.ReadOnlyModelImpl;
+import cs3500.music.model.ReadOnlyModel;
 
 /**
  * MIDI view of an IMusicModel. Displays it visually, through JFrame.
  */
 public class MidiView implements View<Note> {
-  private final ReadOnlyModelImpl<Note> controller;
+  private final ReadOnlyModel<Note> controller;
   private final Sequencer seq;
   private final Sequence sequence;
 
@@ -29,7 +28,7 @@ public class MidiView implements View<Note> {
    *
    * @param piece of type MusicControllerImpl, given the piece that we would like to test.
    */
-  public MidiView(ReadOnlyModelImpl<Note> piece) {
+  public MidiView(ReadOnlyModel<Note> piece) {
     Sequencer seq2 = null;
     Sequence sequence2 = null;
     controller = piece;
@@ -60,7 +59,7 @@ public class MidiView implements View<Note> {
    * @param string of type StringBuilder, so that we can log the calls of start(), open(), close(),
    *               and stop().
    */
-  public MidiView(ReadOnlyModelImpl<Note> piece, StringBuilder string) {
+  public MidiView(ReadOnlyModel<Note> piece, StringBuilder string) {
     controller = piece;
     seq = new MockSequencer(string);
     Sequence sequence2 = null;

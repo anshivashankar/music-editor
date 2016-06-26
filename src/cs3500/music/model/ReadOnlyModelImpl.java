@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * The Read-Only Model Implementation, only allows the View(s) to have read-only access.
  */
-public class ReadOnlyModelImpl<K> implements ReadOnlyModel {
+public class ReadOnlyModelImpl<K> implements ReadOnlyModel<K> {
 
   private IMusicModel<K> piece;
 

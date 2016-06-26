@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * A ReadOnlyModel for an IMusicModel.  Parametrized over the type of Note
  */
-interface ReadOnlyModel<K> {
+public interface ReadOnlyModel<K> {
 
   /**
    * Given a beat number, will return the Notes that appear at that specific beat.

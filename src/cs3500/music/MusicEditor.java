@@ -32,7 +32,7 @@ public class MusicEditor {
     CompositionBuilder<IMusicModel<Note>> comp = new CompositionBuilderImpl();
     if (modelType.equals("console")) {
       try {
-        View view = new ConsoleView(System.out, new ReadOnlyModelImpl<Note>(
+        View<Note> view = new ConsoleView(System.out, new ReadOnlyModelImpl<Note>(
                 MusicReader.parseFile(new FileReader(fileName), comp)));
         MusicController<Note> controller = new MusicControllerImpl<Note>(MusicReader.parseFile(
                 new FileReader(fileName), comp), view);
@@ -43,7 +43,7 @@ public class MusicEditor {
     } else if (modelType.equals("midi")) {
       // use the midi view
       try {
-        View view = new MidiView(new ReadOnlyModelImpl<Note>(
+        View<Note> view = new MidiView(new ReadOnlyModelImpl<Note>(
                 MusicReader.parseFile(new FileReader(fileName), comp)));
         MusicController<Note> controller = new MusicControllerImpl<Note>(MusicReader.parseFile(
                 new FileReader(fileName), comp), view);
@@ -59,7 +59,7 @@ public class MusicEditor {
         ReadOnlyModelImpl<Note> roModel =
                 new ReadOnlyModelImpl<Note>(model);
 
-        GuiView guiView = new GuiViewFrame(roModel);
+        GuiView<Note> guiView = new GuiViewFrame(roModel);
         GUIMusicControllerImpl<Note> controller = new GUIMusicControllerImpl<Note>(model, guiView);
         controller.view();
       } catch (FileNotFoundException e) {
