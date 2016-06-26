@@ -35,8 +35,8 @@ public class CombinedView implements GuiView<Note> {
 
   @Override
   public void view() {
-    guiView.view();
     midiView.view();
+    guiView.view();
   }
 
   @Override
