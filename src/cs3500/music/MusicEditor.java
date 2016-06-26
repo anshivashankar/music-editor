@@ -34,7 +34,9 @@ public class MusicEditor {
       try {
         View view = new ConsoleView(System.out, new ReadOnlyModelImpl<Note>(
                 MusicReader.parseFile(new FileReader(fileName), comp)));
-        view.view();
+        MusicController<Note> controller = new MusicControllerImpl<Note>(MusicReader.parseFile(
+                new FileReader(fileName), comp), view);
+        controller.view();
       } catch (FileNotFoundException e) {
         System.out.println("File not found");
       }
@@ -43,18 +45,23 @@ public class MusicEditor {
       try {
         View view = new MidiView(new ReadOnlyModelImpl<Note>(
                 MusicReader.parseFile(new FileReader(fileName), comp)));
-        view.view();
+        MusicController<Note> controller = new MusicControllerImpl<Note>(MusicReader.parseFile(
+                new FileReader(fileName), comp), view);
+        controller.view();
         view.playAtTime(0);
       } catch (FileNotFoundException e) {
         System.out.println("File not found");
       }
     } else if (modelType.equals("visual")) {
       try {
-        // TODO: make this use the GuiView ans GUI Controller as well
-        View view = new GuiViewFrame(new ReadOnlyModelImpl<Note>(
-                MusicReader.parseFile(new FileReader(fileName), comp)));
-        view.view();
-        view.playAtTime(0);
+        IMusicModel<Note> model = MusicReader.parseFile(
+                new FileReader(fileName), comp);
+        ReadOnlyModelImpl<Note> roModel =
+                new ReadOnlyModelImpl<Note>(model);
+
+        GuiView guiView = new GuiViewFrame(roModel);
+        GUIMusicControllerImpl<Note> controller = new GUIMusicControllerImpl<Note>(model, guiView);
+        controller.view();
       } catch (FileNotFoundException e) {
         System.out.println("File not found");
       }

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 
-import cs3500.music.controller.MusicController;
 import cs3500.music.model.Note;
 import cs3500.music.model.ReadOnlyModelImpl;
 
@@ -110,14 +109,17 @@ public class ConsoleView implements View<Note> {
 
   @Override
   public void moveToBeginning() {
+    return;
   }
 
   @Override
   public void moveToEnd() {
+    return;
   }
 
   @Override
   public void update() {
+    return;
   }
 
 

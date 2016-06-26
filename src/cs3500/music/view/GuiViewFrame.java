@@ -48,21 +48,22 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
     this.requestFocus();
   }
 
-  // TODO: rest of these need to be implemented
   @Override
   public void togglePausePlay() {
+    // already handled with the 'timer'
+    return;
   }
 
   @Override
   public void playAtTime(long sec) {
-    // Make sure to place the red 'line' at this point, it is given in microseconds.
+    // also already handled with the 'timer'
+    return;
   }
 
   @Override
   public void moveToBeginning() {
     JScrollBar horizontal = this.scrollPane.getHorizontalScrollBar();
     horizontal.setValue(0);
-
   }
 
   @Override
@@ -126,7 +127,11 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
     vertical.setValue(vertical.getValue() + 10);
   }
 
-  //@Override
+  /**
+   * Update Time is used only for CombinedView, so that both views are kepty in sync.
+   *
+   * @param time of type long, to be synced up with MidiView.
+   */
   protected void updateTime(long time) {
     this.displayPanel.updateTime(time);
     this.displayPanel.setResizeOnRepaint(false);
@@ -134,14 +139,10 @@ public class GuiViewFrame extends JFrame implements GuiView<Note> {
     this.displayPanel.setResizeOnRepaint(true);
 
     JScrollBar horizontal = this.scrollPane.getHorizontalScrollBar();
-    //horizontal.setValue(((int) (boxSize * (2 + time / this.controller.getTempo()))) -
-    //        horizontal.getVisibleAmount() / 2);
-
-    if(horizontal.getValue()  < (int) (boxSize * (2 + time / this.controller.getTempo()) - horizontal.getVisibleAmount())) {
+    if (horizontal.getValue() < (int) (boxSize * (2 + time / this.controller.getTempo())
+            - horizontal.getVisibleAmount())) {
       horizontal.setValue((int) (boxSize * (2 + time / this.controller.getTempo())));
     }
-
-
   }
 
   @Override

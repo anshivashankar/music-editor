@@ -3,8 +3,6 @@ package cs3500.music.view;
 
 import java.awt.FlowLayout;
 import java.awt.event.KeyListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 
@@ -21,6 +19,10 @@ public class EditorFrame extends JFrame {
   private final JTextField volume;
 
 
+  /**
+   * The constructor for our EditorFrame, which allows the user to select a new Note. Instantiates
+   * the variables above.
+   */
   protected EditorFrame() {
 
     this.setLayout(new FlowLayout());
@@ -62,6 +64,11 @@ public class EditorFrame extends JFrame {
     this.addKeyListener(kl);
   }
 
+  /**
+   * Gets the Note.
+   *
+   * @return of type Note.
+   */
   public Note getNote() {
     Note n = null;
     try {
@@ -77,17 +84,14 @@ public class EditorFrame extends JFrame {
     return n;
   }
 
+  /**
+   * Clears the fields after an input has been received.
+   */
   protected void clearFields() {
     this.pitch.setText("");
     this.startBeat.setText("");
     this.duration.setText("");
     this.volume.setText("");
     this.instrument.setText("");
-  }
-
-  // for testing, delete later
-  public static void main(String[] args) {
-    JFrame frame = new EditorFrame();
-    frame.setVisible(true);
   }
 }

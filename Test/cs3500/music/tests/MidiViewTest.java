@@ -75,7 +75,6 @@ public class MidiViewTest {
     view.view();
     view.moveToEnd();
     view.moveToBeginning();
-    //view.togglePausePlay();
     assertEquals(view.getTime(), 0);
   }
 

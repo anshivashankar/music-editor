@@ -77,6 +77,11 @@ public class MidiView implements View<Note> {
     }
   }
 
+  /**
+   * Checks to see if this is playing. Used with CombinedView to keep both Views in sync.
+   *
+   * @return of type boolean, if the midi view is currently playing.
+   */
   protected boolean isPlaying() {
     return this.seq.isRunning();
   }
@@ -85,18 +90,12 @@ public class MidiView implements View<Note> {
    * View simply initializes the Track and Sequencer, does not call start or play the notes.
    */
   public void view() {
-
-
     Track track = sequence.createTrack();
-
-
     try {
       seq.setSequence(sequence);
     } catch (InvalidMidiDataException e) {
       e.printStackTrace();
     }
-
-
     List<Note> notes = controller.getAllNotes();
     for (Note note : notes) {
       try {
@@ -104,31 +103,13 @@ public class MidiView implements View<Note> {
                 note.notePlace(), note.getVolume());
         MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, note.getInstrument(),
                 note.notePlace(), note.getVolume());
-
-
-        // sequencer
         track.add(new MidiEvent(start, note.getStartBeat() * controller.getTempo()));
         track.add(new MidiEvent(stop, (note.getStartBeat() + note.getDuration())
                 * controller.getTempo()));
-
       } catch (InvalidMidiDataException e) {
         e.printStackTrace();
       }
     }
-
-
-    //seq.start();
-
-    /*
-    try {
-      // divide my 1000 because of the microsecond to millisecond conversion
-      Thread.sleep((long) controller.lastBeat() * (long) controller.getTempo() / 1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }*/
-    //seq.stop();
-    //seq.close();
-
   }
 
 
@@ -143,13 +124,10 @@ public class MidiView implements View<Note> {
 
   @Override
   public void playAtTime(long sec) {
-    //seq.stop();
     seq.setMicrosecondPosition(sec);
     seq.start();
   }
 
-
-  // TODO: these need to actually be implemented
 
   @Override
   public void moveToBeginning() {

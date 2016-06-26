@@ -58,8 +58,6 @@ public class GUIMusicControllerImpl<K> implements MusicController<K> {
       view.closeEditWindow();
     });
 
-    //TODO: add escape key for exiting the window and make sure the editWindow exits as it should
-
     return kh;
   }
 
